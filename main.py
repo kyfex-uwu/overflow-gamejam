@@ -1,6 +1,7 @@
 import pygame
 
-from entity import Entity
+from entity.entity import Entity
+from entity.solid import SolidEntity
 from level import Level
 
 # pygame setup
@@ -11,8 +12,10 @@ running = True
 dt = 0
 
 test_level = Level(40,30)
-test_entity = Entity(10, 50, 30, 70)
+test_entity = SolidEntity(5,120,200,5, 100)
 test_entity.init(test_level)
+test_entity2 = SolidEntity(50, 50, 8,8, 100)
+test_entity2.init(test_level)
 
 while running:
     # poll for events
