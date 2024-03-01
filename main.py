@@ -10,7 +10,7 @@ clock = pygame.time.Clock()
 running = True
 dt = 0
 
-test_level = Level(40,30)
+test_level = Level(400,30)
 test_entity = Entity(10, 50, 30, 70)
 test_entity.init(test_level)
 
@@ -23,15 +23,17 @@ while running:
 
     test_level.tick()
 
-    # keys = pygame.key.get_pressed()
-    # if keys[pygame.K_w]:
-    #     player_pos.y -= 300 * dt
-    # if keys[pygame.K_s]:
-    #     player_pos.y += 300 * dt
-    # if keys[pygame.K_a]:
-    #     player_pos.x -= 300 * dt
-    # if keys[pygame.K_d]:
-    #     player_pos.x += 300 * dt
+    vfactor = 300
+
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_w] and test_level.y - vfactor*dt >= 0:
+        test_level.y -= vfactor * dt
+    if keys[pygame.K_s] and test_level.y - vfactor*dt <= test_level.h:
+        test_level.y += vfactor * dt
+    if keys[pygame.K_a] and test_level.x - vfactor*dt >= 0:
+        test_level.x -= vfactor * dt
+    if keys[pygame.K_d] and test_level.y - vfactor*dt <= test_level.w:
+        test_level.x += vfactor * dt
 
     test_level.render(SCREEN)
     pygame.display.flip()
