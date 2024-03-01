@@ -164,11 +164,11 @@ class GameWindow(arcade.Window):
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
 
-        if key == arcade.key.A:
+        if key == arcade.key.A  or key == arcade.key.LEFT:
             self.left_pressed = True
-        elif key == arcade.key.D:
+        elif key == arcade.key.D  or key == arcade.key.RIGHT:
             self.right_pressed = True
-        elif key == arcade.key.W:
+        elif key == arcade.key.W or key == arcade.key.UP:
             # find out if player is standing on ground
             if self.physics_engine.is_on_ground(self.player_sprite):
                 # She is! Go ahead and jump
