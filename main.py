@@ -29,7 +29,7 @@ GRAVITY = 1500
 
 # Damping - Amount of speed lost per second
 DEFAULT_DAMPING = 1.0
-PLAYER_DAMPING = 0.4
+PLAYER_DAMPING = 100
 
 # Friction between objects
 PLAYER_FRICTION = 1.0
@@ -40,17 +40,8 @@ DYNAMIC_ITEM_FRICTION = 0.6
 PLAYER_MASS = 2.0
 
 # Keep player from going too fast
-PLAYER_MAX_HORIZONTAL_SPEED = 600
+PLAYER_MAX_HORIZONTAL_SPEED = 450
 PLAYER_MAX_VERTICAL_SPEED = 1200
-
-# Force applied while on the ground
-PLAYER_MOVE_FORCE_ON_GROUND = 5000
-
-# Force applied when moving left/right in the air
-PLAYER_MOVE_FORCE_IN_AIR = 5000
-
-# Strength of a jump
-PLAYER_JUMP_IMPULSE = 1500
 
 
 class GameWindow(arcade.Window):
@@ -117,10 +108,10 @@ class GameWindow(arcade.Window):
         # For top-down games, this is basically the friction for moving objects.
         # For platformers with gravity, this should probably be set to 1.0.
         # Default value is 1.0 if not specified.
-        damping = DEFAULT_DAMPING
+        damping = 1.0
 
         # Set the gravity. (0, 0) is good for outer space and top-down.
-        gravity = (0, -GRAVITY)
+        gravity = (0, -2000)
 
         # Create the physics engine
         self.physics_engine = arcade.PymunkPhysicsEngine(damping=damping,
@@ -172,7 +163,7 @@ class GameWindow(arcade.Window):
             # find out if player is standing on ground
             if self.physics_engine.is_on_ground(self.player_sprite):
                 # She is! Go ahead and jump
-                impulse = (0, PLAYER_JUMP_IMPULSE)
+                impulse = (0, 1500)
                 self.physics_engine.apply_impulse(self.player_sprite, impulse)
 
     def on_key_release(self, key, modifiers):
@@ -191,18 +182,18 @@ class GameWindow(arcade.Window):
         if self.left_pressed and not self.right_pressed:
             # Create a force to the left. Apply it.
             if is_on_ground:
-                force = (-PLAYER_MOVE_FORCE_ON_GROUND, 0)
+                force = (-5000, 0)
             else:
-                force = (-PLAYER_MOVE_FORCE_IN_AIR, 0)
+                force = (-5000, 0)
             self.physics_engine.apply_force(self.player_sprite, force)
             # Set friction to zero for the player while moving
             self.physics_engine.set_friction(self.player_sprite, 0)
         elif self.right_pressed and not self.left_pressed:
             # Create a force to the right. Apply it.
             if is_on_ground:
-                force = (PLAYER_MOVE_FORCE_ON_GROUND, 0)
+                force = (5000, 0)
             else:
-                force = (PLAYER_MOVE_FORCE_IN_AIR, 0)
+                force = (5000, 0)
             self.physics_engine.apply_force(self.player_sprite, force)
             # Set friction to zero for the player while moving
             self.physics_engine.set_friction(self.player_sprite, 0)
