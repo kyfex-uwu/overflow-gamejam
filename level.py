@@ -1,6 +1,8 @@
 import pygame
 from pygame import Surface
 
+from entity.entity import Vector
+
 PIXEL_WIDTH=5
 vfactor = 3
 
@@ -11,8 +13,12 @@ class Level:
         self.x=0
         self.y=0
         self.surface = Surface((w*8,h*8))
+        self.screenSize=Vector(0,0)
 
         self.entities = []
+
+    def set_screen_size(self, dest:Surface):
+        self.screenSize = Vector(dest.get_width() / PIXEL_WIDTH, dest.get_height() / PIXEL_WIDTH)
 
     def render(self, dest: Surface):
         keys = pygame.key.get_pressed()

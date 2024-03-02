@@ -11,8 +11,8 @@ clock = pygame.time.Clock()
 running = True
 dt = 0
 
-test_level = Level(40,30)
-SolidEntity(5,120,200,5).init(test_level) # wall 1
+test_level = Level(60,30)
+SolidEntity(5,120,500,5).init(test_level) # wall 1
 SolidEntity(5,50,5,70).init(test_level) # wall 2
 SolidEntity(5,5,200,5).init(test_level) # wall 3
 SolidEntity(50,70,5,70).init(test_level) # wall 4
@@ -25,6 +25,8 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
+    test_level.set_screen_size(SCREEN)
 
     test_level.tick()
 

@@ -1,16 +1,16 @@
-from entity.entity import Entity, Point, Rect
+from entity.entity import Entity, Vector, Rect
 
 epsilon=0.00001
 inv_epsilon = 1/epsilon
-def isRayInRect(rayOrigin:Point, rayDir:Point, rect:Rect):
+def isRayInRect(rayOrigin:Vector, rayDir:Vector, rect:Rect):
     if rayDir.x == 0: rayDir.x = epsilon
     if rayDir.y == 0: rayDir.y = epsilon
 
-    tNear = Point(
+    tNear = Vector(
         (rect.x - rayOrigin.x) / rayDir.x,
         (rect.y - rayOrigin.y) / rayDir.y
     )
-    tFar = Point(
+    tFar = Vector(
         (rect.x + rect.w - rayOrigin.x) / rayDir.x,
         (rect.y + rect.h - rayOrigin.y) / rayDir.y
     )
@@ -27,21 +27,21 @@ def isRayInRect(rayOrigin:Point, rayDir:Point, rect:Rect):
     if tHitFar < 0 or tHitNear > 1:
         return False
 
-    contactPoint = Point(
+    contactPoint = Vector(
         rayOrigin.x + tHitNear * rayDir.x,
         rayOrigin.y + tHitNear * rayDir.y
     )
-    contactNormal = Point(0,0)
+    contactNormal = Vector(0, 0)
     if tNear.x > tNear.y:
         if rayDir.x < 0:
-            contactNormal = Point(1,0)
+            contactNormal = Vector(1, 0)
         else:
-            contactNormal = Point(-1,0)
+            contactNormal = Vector(-1, 0)
     elif tNear.x < tNear.y:
         if rayDir.y < 0:
-            contactNormal = Point(0,1)
+            contactNormal = Vector(0, 1)
         else:
-            contactNormal = Point(0,-1)
+            contactNormal = Vector(0, -1)
     return {
         'point': contactPoint,
         'normal': contactNormal,
@@ -70,18 +70,18 @@ class SolidEntity(Entity):
         maxCount = 2
         while (remainingXVel != 0 or remainingYVel != 0) and maxCount > 0:
             closestPoint={
-                "point":Point(
+                "point":Vector(
                     self.x + remainingXVel,
                     self.y + remainingYVel
                 ),
-                "normal": Point(0,0),
+                "normal": Vector(0, 0),
                 "distance": 1
             }
 
             for other in self.level.entities:
                 if other is self: continue
 
-                contact = isRayInRect(Point(self.x,self.y), Point(remainingXVel,remainingYVel),
+                contact = isRayInRect(Vector(self.x, self.y), Vector(remainingXVel, remainingYVel),
                                       Rect(other.x - self.w, other.y - self.h, other.w + self.w, other.h + self.h))
                 if contact is not False and contact['distance'] < closestPoint['distance']:
                     closestPoint=contact
