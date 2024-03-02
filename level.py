@@ -37,7 +37,6 @@ class Level:
 
         for entity in self.entities:
             entity.render()
-        print(self.x,self.y,dest.get_width()/PIXEL_WIDTH,dest.get_height()/PIXEL_WIDTH)
         pygame.transform.scale(self.surface.subsurface(
                 (self.x,self.y,dest.get_width()/PIXEL_WIDTH,dest.get_height()/PIXEL_WIDTH)),
             (dest.get_width(),dest.get_height()),

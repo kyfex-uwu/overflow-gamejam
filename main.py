@@ -14,8 +14,8 @@ running = True
 dt = 0
 
 
-test_level = Level(25,19)
-PlayerEntity(10,10).init(test_level)
+test_level = Level(250,190)
+PlayerEntity(6,6).init(test_level)
 
 
 
