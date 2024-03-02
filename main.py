@@ -17,20 +17,28 @@ SolidEntity(9, 6, 6, 4).init(test_level)
 
 PlayerEntity(10,10,10,10).init(test_level)
 
+
+
 Tiles({
-    "A": (3,0,"test")
+    "A": (4,2,"test"),
+    "B": (2,0,"test"),
+    "C": (5,2,"test"),
+    "D": (0,2,"test"),
+    "E": (4,3,"test"),
+    "F": (5,3,"test")
 },"""
+ABBBBBBBBBBBBBBBBC
+D................D
+D................D
+D................D
+D................D
+D................D
+D................D
+D................D
+D................D
+EBBBBBBBBBBBBBBBBF""").init(test_level)
 
 
-
-
-
-
-
-
-
-AA.AAAA
-......A""").init(test_level)
 
 while running:
     for event in pygame.event.get():

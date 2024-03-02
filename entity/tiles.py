@@ -41,4 +41,4 @@ class Tiles(SolidEntity):
             for x in range(self.w):
                 if self.tiles[y][x] is None: continue
                 self.level.surface.blit(self.images[self.tiles[y][x][2]], (x * 8, y * 8),
-                                        (0, 0, 8, 8))
+                                        (self.tiles[y][x][0]*8,self.tiles[y][x][1]*8, 8, 8))
