@@ -10,3 +10,4 @@ class DiscEntity(Entity):
         super().__init__(x, y, 16,16)
 
     def render(self):
+        pass

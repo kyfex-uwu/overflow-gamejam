@@ -12,7 +12,7 @@ class Level:
         self.h=max(18,h)
         self.x=0
         self.y=0
-        self.surface = Surface((w*8,h*8))
+        self.surface = Surface((self.w*8,self.h*8))
         self.screenSize=Vector(0,0)
 
         self.entities = []
@@ -37,7 +37,6 @@ class Level:
 
         for entity in self.entities:
             entity.render()
-        print(self.x,self.y,dest.get_width()/PIXEL_WIDTH,dest.get_height()/PIXEL_WIDTH)
         pygame.transform.scale(self.surface.subsurface(
                 (self.x,self.y,dest.get_width()/PIXEL_WIDTH,dest.get_height()/PIXEL_WIDTH)),
             (dest.get_width(),dest.get_height()),
