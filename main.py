@@ -13,23 +13,59 @@ clock = pygame.time.Clock()
 running = True
 dt = 0
 
-test_level = Level(32,18)
+
+test_level = Level(25,19)
 PlayerEntity(10,10).init(test_level)
 
-SpawnPointEntity(80,24,15,14,(87.5,31)).init(test_level)
+
+
+
+
+SpawnPointEntity(1,1,28,20,(15,11)).init(test_level)
+SpawnPointEntity(71,45,14,16,(78,53)).init(test_level)
+SolidEntity(41,89,6,6).init(test_level)
+SpawnPointEntity(77,91,20,16,(87,99)).init(test_level)
 
 Tiles({
-    "A": (0,0,"test")
+    "A": (0,1,"blueTiles"),
+    "B": (1,0,"blueTiles"),
+    "C": (3,0,"blueTiles"),
+    "D": (0,2,"blueTiles"),
+    "E": (2,0,"blueTiles"),
+    "F": (5,3,"blueTiles"),
+    "G": (4,2,"blueTiles"),
+    "H": (5,1,"blueTiles"),
+    "I": (5,2,"blueTiles"),
+    "J": (5,0,"blueTiles"),
+    "K": (4,1,"blueTiles"),
+    "L": (7,5,"blueTiles"),
+    "M": (4,3,"blueTiles"),
+    "N": (4,0,"blueTiles"),
+    "O": (7,5,"test2"),
+    "P": (0,3,"blueTiles"),
+    "Q": (1,0,"test2"),
+    "R": (2,0,"test2"),
+    "S": (3,0,"test2")
 },"""
 
+.........A
+.BC......D
+....BEEC.D
+.........D
+.......BEF
 
-.A
-..A............AAA
-..A..........A...A
-...A......AA.....A
-....A.....A......A
-......AA.........A
-.........A""").init(test_level)
+......BEEEC
+
+.....A
+....GHI
+...BJ.KC
+...LMNF.......O
+.....P...QRRRRRS
+...................
+
+
+.........................
+.......................R""").init(test_level)
 
 while running:
     for event in pygame.event.get():
