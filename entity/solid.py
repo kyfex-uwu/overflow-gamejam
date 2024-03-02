@@ -89,12 +89,12 @@ class SolidEntity(Entity):
                             normal.y = -1 if remainingYVel>0 else 1
                         if remainingXVel !=0:
                             point.x = other.x + (-self.w if remainingYVel>0 else other.w)
-                            normal.x = 1 if remainingXVel>0 else -1
+                            normal.x = -1 if remainingXVel>0 else 1
 
                         contact = {
                             'point': point,
                             'normal': normal,
-                            'distance': (point.x-self.x+point.y-self.y)/abs(remainingYVel+remainingXVel)
+                            'distance': abs((point.x-self.x+point.y-self.y)/(remainingYVel+remainingXVel))
                         }
                 else:
                     contact = isRayInRect(Vector(self.x, self.y), Vector(remainingXVel, remainingYVel),

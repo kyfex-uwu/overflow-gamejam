@@ -14,13 +14,13 @@ class PlayerEntity(GravityEntity):
             if self.is_jumping == 0: self.is_jumping = 10
             self.is_jumping -= 1
 
-            self.yVel = max(self.yVel - 3, -5)
+            self.yVel -= 3
         else:
             self.is_jumping = 0
         if keys[pygame.K_a]:
-            self.xVel -= 1
+            self.xVel = max(self.xVel - 0.5, -2)
         if keys[pygame.K_d]:
-            self.xVel += 1
+            self.xVel = min(self.xVel + 0.5, 2)
         if not keys[pygame.K_a] and not keys[pygame.K_d]:
             self.xVel *= 0.7
 
