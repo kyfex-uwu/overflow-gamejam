@@ -1,9 +1,10 @@
+import math
+
 import pygame
 
 from entity.player import PlayerEntity
 from entity.solid import SolidEntity
 from level import Level
-import numpy as np
 
 # pygame setup
 pygame.init()
@@ -34,7 +35,7 @@ while running:
     test_level.render(SCREEN)
     pygame.display.flip()
     dt = clock.tick(60) / 1000
-    test_entity2.rcolor += round(np.sin(test_entity2.bcolor))
-    test_entity2.bcolor += round(np.sin(test_entity2.gcolor))
-    test_entity2.gcolor += round(np.sin(test_entity2.rcolor + 1))
+    test_entity2.rcolor += round(math.sin(test_entity2.bcolor))
+    test_entity2.bcolor += round(math.sin(test_entity2.gcolor))
+    test_entity2.gcolor += round(math.sin(test_entity2.rcolor + 1))
 pygame.quit()
