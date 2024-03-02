@@ -22,7 +22,7 @@ class Entity:
 
     def render(self):
         pygame.draw.rect(self.level.surface, pygame.Color(255, 0, 0),
-                         pygame.Rect(self.x, self.y, self.w, self.h))
+                         pygame.Rect(round(self.x), round(self.y), self.w, self.h))
 
     def tick(self):
         pass
