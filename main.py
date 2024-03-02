@@ -26,18 +26,6 @@ while running:
 
     test_level.tick()
 
-    vfactor = 300
-
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_w] and test_level.y - vfactor*dt >= 0:
-        test_level.y -= vfactor * dt
-    if keys[pygame.K_s] and test_level.y - vfactor*dt <= test_level.h:
-        test_level.y += vfactor * dt
-    if keys[pygame.K_a] and test_level.x - vfactor*dt >= 0:
-        test_level.x -= vfactor * dt
-    if keys[pygame.K_d] and test_level.y - vfactor*dt <= test_level.w:
-        test_level.x += vfactor * dt
-
     test_level.render(SCREEN)
     pygame.display.flip()
     dt = clock.tick(60) / 1000

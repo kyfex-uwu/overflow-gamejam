@@ -2,6 +2,7 @@ import pygame
 from pygame import Surface
 
 PIXEL_WIDTH=5
+vfactor = 3
 
 class Level:
     def __init__(self, w, h): # in tiles
@@ -14,6 +15,16 @@ class Level:
         self.entities = []
 
     def render(self, dest: Surface):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_UP]:
+            self.y = max(0, self.y - vfactor)
+        if keys[pygame.K_DOWN]: # test_level.y - vfactor*dt <= test_level.h
+            self.y = min(self.h, self.y + vfactor)
+        if keys[pygame.K_LEFT]:
+            self.x = max(0, self.x - vfactor)
+        if keys[pygame.K_RIGHT]:
+            self.x = min(self.w, self.x + vfactor)
+
         self.surface.fill(pygame.Color(0,0,0))
 
         for entity in self.entities:

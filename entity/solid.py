@@ -47,8 +47,6 @@ def isRayInRect(rayOrigin:Point, rayDir:Point, rect:Rect):
         'distance': tHitNear
     }
 
-
-
 class SolidEntity(Entity):
     def __init__(self, x, y, w, h, weight):
         super().__init__(x, y, w, h)
