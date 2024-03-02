@@ -48,7 +48,7 @@ def isRayInRect(rayOrigin:Vector, rayDir:Vector, rect:Rect):
 class SolidEntity(Entity):
     def __init__(self, x, y, w, h, color):
         super().__init__(x, y, w, h, color)
-        self.grounded=False
+        self.normal = Vector(0,0)
         
 
     def tick(self):
@@ -61,7 +61,7 @@ class SolidEntity(Entity):
         if abs(self.yVel) <= 0.002: self.yVel=0
 
     def move(self):
-        self.grounded=False
+        self.normal=Vector(0,0)
         remainingXVel = self.xVel
         remainingYVel = self.yVel
 
@@ -115,7 +115,8 @@ class SolidEntity(Entity):
 
             maxCount-=1
 
-            self.grounded = self.grounded or closestPoint['normal'].y==-1
+            self.normal.x = self.normal.x if self.normal.x != 0 else closestPoint['normal'].x
+            self.normal.y = self.normal.y if self.normal.y != 0 else closestPoint['normal'].y
             if closestPoint['normal'].x != 0:
                 self.xVel=0
             if closestPoint['normal'].y != 0:

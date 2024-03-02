@@ -14,10 +14,14 @@ running = True
 dt = 0
 
 test_level = Level(70,30)
-SolidEntity(5,120,500,5,(100,0,100)).init(test_level) # wall 1
-SolidEntity(5,50,5,70,(50,200,35)).init(test_level) # wall 2
-SolidEntity(5,30,200,5,(20,80,230)).init(test_level) # wall 3
-SolidEntity(50,70,5,70,(200,40,135)).init(test_level) # wall 4
+SolidEntity(24,14.800003051757812,14,23,(50,50,70)).init(test_level)
+SolidEntity(48,16.800003051757812,14,26,(50,50,70)).init(test_level)
+SolidEntity(8,52.80000305175781,10,30,(50,50,70)).init(test_level)
+SolidEntity(19,82.80000305175781,51,13,(50,50,70)).init(test_level)
+SolidEntity(70,53.80000305175781,11,27,(50,50,70)).init(test_level)
+SolidEntity(33,49.80000305175781,20,6,(50,50,70)).init(test_level)
+SolidEntity(36,54.80000305175781,14,5,(50,50,70)).init(test_level)
+SolidEntity(35,-10.199996948242188,0,0,(50,50,70)).init(test_level)
 test_entity2 = PlayerEntity(50, 50, 8,8,(30,40,50))
 test_entity2.init(test_level)
 

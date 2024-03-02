@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.js"></script>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <button onclick="exportCode()">Export</button>
+    <script>
+        class Entity{
+          constructor(x,y,w,h){
+            this.x=x;
+            this.y=y;
+            this.w=w;
+            this.h=h;
+          }
+          render(){
+            rect(this.x,this.y,this.w,this.h);
+          }
+
+          toCode(){ return ""; }
+        }
+        class GroundEntity extends Entity{
+          constructor(x,y,w,h){
+            super(x,y,w,h);
+          }
+          render(){
+            fill(50,50,70);
+            super.render();
+          }
+
+          toCode(){ return `SolidEntity(${this.x},${this.y},${this.w},${this.h},(50,50,70)).init(test_level)`; }
+        }
+
+        let currEntity;
+        function mousePressed(){
+          currEntity = new GroundEntity(mouseX, mouseY);
+        }
+        function mouseReleased(){
+          if(currEntity.w<0){
+            currEntity.x+=currEntity.w;
+            currEntity.w*=-1;
+          }
+          if(currEntity.h<0){
+            currEntity.y+=currEntity.h;
+            currEntity.h*=-1;
+          }
+          entities.push(currEntity);
+          currEntity=undefined;
+        }
+
+        function exportCode(){
+          console.log(entities.filter(e=>e.w!=0&&e.h!=0).map(e=>e.toCode()).join("\n"));
+        }
+
+        function setup() {
+          createCanvas(400, 400);
+          noStroke();
+        }
+
+        const entities=[];
+
+        function draw() {
+          background(220);
+          for(const entity of entities) entity.render();
+
+          if(currEntity){
+            currEntity.w=mouseX-currEntity.x;
+            currEntity.h=mouseY-currEntity.y;
+            currEntity.render();
+          }
+        }
+    </script>
+  </body>
+</html>
