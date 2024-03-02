@@ -16,6 +16,7 @@ class GravityEntity(SolidEntity):
             self.is_jumping -= 1
 
             self.yVel = max(self.yVel-3,-5)
+        else: self.is_jumping=0
         if keys[pygame.K_a]:
             self.xVel -= 1
         if keys[pygame.K_d]:
