@@ -10,6 +10,7 @@ class Entity:
         self.h = h
         self.xVel = 0
         self.yVel = 0
+        self.solid = False
 
     def init(self, level):
         level.entities.append(self)

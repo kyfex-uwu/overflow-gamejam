@@ -8,14 +8,16 @@ vfactor = 3
 
 class Level:
     def __init__(self, w, h): # in tiles
-        self.w=w
-        self.h=h
+        self.w=max(32,w)
+        self.h=max(18,h)
         self.x=0
         self.y=0
         self.surface = Surface((w*8,h*8))
         self.screenSize=Vector(0,0)
 
         self.entities = []
+        self.default_spawn = None
+        self.player_entity = None
 
     def set_screen_size(self, dest:Surface):
         self.screenSize = Vector(dest.get_width() / PIXEL_WIDTH, dest.get_height() / PIXEL_WIDTH)
@@ -35,7 +37,7 @@ class Level:
 
         for entity in self.entities:
             entity.render()
-
+        print(self.x,self.y,dest.get_width()/PIXEL_WIDTH,dest.get_height()/PIXEL_WIDTH)
         pygame.transform.scale(self.surface.subsurface(
                 (self.x,self.y,dest.get_width()/PIXEL_WIDTH,dest.get_height()/PIXEL_WIDTH)),
             (dest.get_width(),dest.get_height()),
