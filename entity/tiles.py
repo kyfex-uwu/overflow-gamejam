@@ -10,7 +10,7 @@ class Tiles(SolidEntity):
         super().__init__(0, 0, 0, 0)
         self.palette = palette
 
-        rows = tileStr.split("\n")
+        rows = tileStr[1:].split("\n")
         self.w = len(sorted(rows, key=lambda row: len(row), reverse=True)[0])
         self.h = len(rows)
 
