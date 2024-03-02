@@ -26,8 +26,6 @@ test_entity2 = PlayerEntity(50, 50, 8,8,(30,40,50))
 test_entity2.init(test_level)
 
 while running:
-    # poll for events
-    # pygame.QUIT event means the user clicked X to close your window
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False

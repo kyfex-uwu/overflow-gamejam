@@ -4,8 +4,8 @@ from entity.gravity import GravityEntity
 
 
 class PlayerEntity(GravityEntity):
-    def __init__(self, x, y, w, h, color):
-        super().__init__(x, y, w, h, color)
+    def __init__(self, x, y, w, h):
+        super().__init__(x, y, w, h)
         self.is_jumping=0
 
     def tick(self):
