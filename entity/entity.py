@@ -8,7 +8,9 @@ class Entity:
         self.y = y
         self.w = w
         self.h = h
-        self.color = color
+        self.rcolor = color[0]
+        self.gcolor = color[1]
+        self.bcolor = color[2]
         self.xVel = 0
         self.yVel = 0
 
@@ -21,7 +23,13 @@ class Entity:
                 other.y - self.h <= self.y <= other.y + other.h)
 
     def render(self):
-        pygame.draw.rect(self.level.surface, pygame.Color(self.color[0], self.color[1], self.color[2]),
+        if(self.rcolor>255 or self.rcolor < 0):
+            self.rcolor=0
+        if(self.gcolor>255  or self.gcolor < 0):
+            self.gcolor=0
+        if(self.bcolor>255  or self.bcolor < 0):
+            self.bcolor=0
+        pygame.draw.rect(self.level.surface, pygame.Color(self.rcolor, self.gcolor, self.bcolor),
                          pygame.Rect(round(self.x), round(self.y), self.w, self.h))
 
     def tick(self):
