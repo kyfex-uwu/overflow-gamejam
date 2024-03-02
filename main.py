@@ -6,6 +6,7 @@ from entity.solid import SolidEntity
 from entity.spawn import SpawnPointEntity
 from entity.tiles import Tiles
 from level import Level
+from entity.spikes import SpikeEntity
 
 # pygame setup
 pygame.init()
@@ -23,6 +24,10 @@ SpawnPointEntity(71,45,14,16,(78,53)).init(test_level)
 SolidEntity(41,89,6,6).init(test_level)
 SpawnPointEntity(77,91,20,16,(87,99)).init(test_level)
 DiskEntity(77,91).init(test_level)
+SpikeEntity(50, 50, "up").init(test_level)
+SpikeEntity(10, 10, "down").init(test_level)
+SpikeEntity(20, 20, "left").init(test_level)
+SpikeEntity(30, 30, "right").init(test_level)
 
 Tiles({
     "A": (0,1,"blueTiles"),
