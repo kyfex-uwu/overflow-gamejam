@@ -52,6 +52,7 @@ class SolidEntity(Entity):
     def __init__(self, x, y, w, h):
         super().__init__(x, y, w, h)
         self.normal = Vector(0, 0)
+        self.solid=True
 
     def tick(self):
         self.move()
@@ -79,7 +80,7 @@ class SolidEntity(Entity):
             }
 
             for other in self.level.entities:
-                if other is self: continue
+                if other is self or other.solid is not True: continue
 
                 contact = False
                 if remainingYVel == 0 or remainingXVel == 0:

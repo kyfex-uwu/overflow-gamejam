@@ -2,6 +2,7 @@ import pygame
 
 from entity.player import PlayerEntity
 from entity.solid import SolidEntity
+from entity.spawn import SpawnPointEntity
 from entity.tiles import Tiles
 from level import Level
 
@@ -12,44 +13,23 @@ clock = pygame.time.Clock()
 running = True
 dt = 0
 
-test_level = Level(64,18)
-PlayerEntity(10,10,10,10).init(test_level)
+test_level = Level(32,18)
+PlayerEntity(10,10).init(test_level)
+
+SpawnPointEntity(80,24,15,14,(87.5,31)).init(test_level)
 
 Tiles({
-    "A": (4,2,"test"),
-    "B": (2,0,"test"),
-    "C": (3,4,"test"),
-    "D": (2,4,"test"),
-    "E": (5,2,"test"),
-    "F": (0,2,"test"),
-    "G": (1,2,"test"),
-    "H": (3,2,"test"),
-    "I": (3,3,"test"),
-    "J": (5,3,"test"),
-    "K": (3,1,"test"),
-    "L": (3,5,"test"),
-    "M": (5,1,"test"),
-    "N": (4,3,"test"),
-    "O": (2,5,"test")
+    "A": (0,0,"test")
 },"""
-ABBBBBBBBBBBBBBBBBBBBBBBBBBBBBBCDBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBE
-F..............................GH..............................F
-F..............................GH..............................F
-F..............................GH..............................F
-F..............................GH..............................F
-F..............................GH..............................F
-F..............................GH..............................F
-F..............................GH..............................F
-F..............................GH..............................F
-F..............................GH..............................F
-F..............................GH..............................F
-F..............................GH..............................F
-F..............................GH..............................F
-F..............................GH..............................F
-F..............................GH..............................F
-F..............................GH..............................F
-F..............................GH..............................F
-NBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBLOBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBJ""").init(test_level)
+
+
+.A
+..A............AAA
+..A..........A...A
+...A......AA.....A
+....A.....A......A
+......AA.........A
+.........A""").init(test_level)
 
 while running:
     for event in pygame.event.get():
