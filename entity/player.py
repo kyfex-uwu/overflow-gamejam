@@ -28,5 +28,8 @@ class PlayerEntity(GravityEntity):
             self.x = self.level.x+self.level.screenSize.x
         elif self.x > self.level.x+self.level.screenSize.x:
             self.x = self.level.x-self.w
+        if self.y+self.h > self.level.y + self.level.h*8:
+            self.x=50
+            self.y=50
 
         super().tick()
