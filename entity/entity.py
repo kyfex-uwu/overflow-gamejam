@@ -2,13 +2,13 @@ import pygame
 
 
 class Entity:
-    def __init__(self, x, y, w, h):
+    def __init__(self, x, y, w, h, color=(255,0,0)):
         self.level = None
         self.x = x
         self.y = y
         self.w = w
         self.h = h
-
+        self.color = color
         self.xVel = 0
         self.yVel = 0
 
@@ -21,7 +21,7 @@ class Entity:
                 other.y - self.h <= self.y <= other.y + other.h)
 
     def render(self):
-        pygame.draw.rect(self.level.surface, pygame.Color(255, 0, 0),
+        pygame.draw.rect(self.level.surface, pygame.Color(self.color[0], self.color[1], self.color[2]),
                          pygame.Rect(round(self.x), round(self.y), self.w, self.h))
 
     def tick(self):

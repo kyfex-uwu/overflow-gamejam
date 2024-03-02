@@ -46,9 +46,10 @@ def isRayInRect(rayOrigin:Vector, rayDir:Vector, rect:Rect):
     }
 
 class SolidEntity(Entity):
-    def __init__(self, x, y, w, h):
-        super().__init__(x, y, w, h)
+    def __init__(self, x, y, w, h, color):
+        super().__init__(x, y, w, h, color)
         self.grounded=False
+        
 
     def tick(self):
         self.move()
