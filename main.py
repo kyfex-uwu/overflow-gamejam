@@ -1,5 +1,6 @@
 import pygame
 
+from entity.disk import DiskEntity
 from entity.player import PlayerEntity
 from entity.solid import SolidEntity
 from entity.spawn import SpawnPointEntity
@@ -14,17 +15,14 @@ running = True
 dt = 0
 
 
-test_level = Level(250,190)
-PlayerEntity(6,6).init(test_level)
-
-
-
-
+test_level = Level(25,19)
+PlayerEntity().init(test_level)
 
 SpawnPointEntity(1,1,28,20,(15,11)).init(test_level)
 SpawnPointEntity(71,45,14,16,(78,53)).init(test_level)
 SolidEntity(41,89,6,6).init(test_level)
 SpawnPointEntity(77,91,20,16,(87,99)).init(test_level)
+DiskEntity(77,91).init(test_level)
 
 Tiles({
     "A": (0,1,"blueTiles"),

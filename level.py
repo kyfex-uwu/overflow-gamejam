@@ -12,7 +12,7 @@ class Level:
         self.h=max(18,h)
         self.x=0
         self.y=0
-        self.surface = Surface((w*8,h*8))
+        self.surface = Surface((self.w*8,self.h*8))
         self.screenSize=Vector(0,0)
 
         self.entities = []
