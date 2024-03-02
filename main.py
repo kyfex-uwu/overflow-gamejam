@@ -1,6 +1,6 @@
 import pygame
 
-from entity.entity import Entity
+from entity.gravity import GravityEntity
 from entity.solid import SolidEntity
 from level import Level
 
@@ -12,9 +12,11 @@ running = True
 dt = 0
 
 test_level = Level(40,30)
-test_entity = SolidEntity(5,120,200,5, 100)
-test_entity.init(test_level)
-test_entity2 = SolidEntity(50, 50, 8,8, 100)
+SolidEntity(5,120,200,5).init(test_level) # wall 1
+SolidEntity(5,50,5,70).init(test_level) # wall 2
+SolidEntity(5,5,200,5).init(test_level) # wall 3
+SolidEntity(50,50,5,70).init(test_level) # wall 4
+test_entity2 = GravityEntity(50, 50, 8,8)
 test_entity2.init(test_level)
 
 while running:

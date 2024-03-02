@@ -1,9 +1,10 @@
 from entity.entity import Entity, Point, Rect
 
-
+epsilon=0.00001
+inv_epsilon = 1/epsilon
 def isRayInRect(rayOrigin:Point, rayDir:Point, rect:Rect):
-    if rayDir.x == 0: rayDir.x = 0.00001
-    if rayDir.y == 0: rayDir.y = 0.00001
+    if rayDir.x == 0: rayDir.x = epsilon
+    if rayDir.y == 0: rayDir.y = epsilon
 
     tNear = Point(
         (rect.x - rayOrigin.x) / rayDir.x,
@@ -48,17 +49,21 @@ def isRayInRect(rayOrigin:Point, rayDir:Point, rect:Rect):
     }
 
 class SolidEntity(Entity):
-    def __init__(self, x, y, w, h, weight):
+    def __init__(self, x, y, w, h):
         super().__init__(x, y, w, h)
-        self.weight=weight
+        self.grounded=False
 
     def tick(self):
         self.move()
-        self.xVel*=0.9
-        self.yVel*=0.95
+
+        self.xVel *= 0.95
+        self.yVel *= 0.98
+
+        if abs(self.xVel) <= 0.002: self.xVel=0
+        if abs(self.yVel) <= 0.002: self.yVel=0
 
     def move(self):
-
+        self.grounded=False
         remainingXVel = self.xVel
         remainingYVel = self.yVel
 
@@ -81,19 +86,19 @@ class SolidEntity(Entity):
                 if contact is not False and contact['distance'] < closestPoint['distance']:
                     closestPoint=contact
 
-            remainingXVel -= round((closestPoint['point'].x-self.x) * 1000) / 1000
-            remainingYVel -= round((closestPoint['point'].y-self.y) * 1000) / 1000
+            remainingXVel -= round((closestPoint['point'].x-self.x) / epsilon) * epsilon
+            remainingYVel -= round((closestPoint['point'].y-self.y) / epsilon) * epsilon
 
-            self.x=round((closestPoint['point'].x+closestPoint['normal'].x * 0.001) * 1000) / 1000
-            self.y=round((closestPoint['point'].y+closestPoint['normal'].y * 0.001) * 1000) / 1000
+            self.x=round((closestPoint['point'].x+closestPoint['normal'].x * epsilon) / epsilon) * epsilon
+            self.y=round((closestPoint['point'].y+closestPoint['normal'].y * epsilon) / epsilon) * epsilon
 
             remainingXVel *= -abs(closestPoint['normal'].x)+1
             remainingYVel *= -abs(closestPoint['normal'].y)+1
 
             maxCount-=1
 
-        self.xVel = round(self.xVel * 0.8 * 1000) / 1000
-        self.yVel = round(self.yVel * 0.8 * 1000) / 1000
-
-        if abs(self.xVel) <= 0.002: self.xVel=0
-        if abs(self.yVel) <= 0.002: self.yVel=0
+            self.grounded = self.grounded or closestPoint['normal'].y==-1
+            if closestPoint['normal'].x != 0:
+                self.xVel=0
+            if closestPoint['normal'].y != 0:
+                self.yVel=0
