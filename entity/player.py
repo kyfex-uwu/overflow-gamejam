@@ -4,8 +4,8 @@ from entity.gravity import GravityEntity
 
 
 class PlayerEntity(GravityEntity):
-    def __init__(self, w, h):
-        super().__init__(0,0, w, h)
+    def __init__(self):
+        super().__init__(0,0, 6, 6)
         self.is_jumping=0
         self.spawnpoint = (0,0)
 
