@@ -11,7 +11,7 @@ clock = pygame.time.Clock()
 running = True
 dt = 0
 
-test_level = Level(60,30)
+test_level = Level(70,30)
 SolidEntity(5,120,500,5).init(test_level) # wall 1
 SolidEntity(5,50,5,70).init(test_level) # wall 2
 SolidEntity(5,5,200,5).init(test_level) # wall 3

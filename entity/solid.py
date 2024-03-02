@@ -3,9 +3,6 @@ from entity.entity import Entity, Vector, Rect
 epsilon=0.00001
 inv_epsilon = 1/epsilon
 def isRayInRect(rayOrigin:Vector, rayDir:Vector, rect:Rect):
-    if rayDir.x == 0: rayDir.x = epsilon
-    if rayDir.y == 0: rayDir.y = epsilon
-
     tNear = Vector(
         (rect.x - rayOrigin.x) / rayDir.x,
         (rect.y - rayOrigin.y) / rayDir.y
@@ -81,8 +78,28 @@ class SolidEntity(Entity):
             for other in self.level.entities:
                 if other is self: continue
 
-                contact = isRayInRect(Vector(self.x, self.y), Vector(remainingXVel, remainingYVel),
-                                      Rect(other.x - self.w, other.y - self.h, other.w + self.w, other.h + self.h))
+                contact = False
+                if remainingYVel==0 or remainingXVel == 0:
+                    if (other.x-self.w-remainingXVel<=self.x<=other.x+other.w and
+                            other.y-self.h-remainingYVel<=self.y<=other.y+other.h):
+                        point = Vector(self.x, self.y)
+                        normal = Vector(0,0)
+                        if remainingYVel !=0:
+                            point.y = other.y + (-self.h if remainingYVel>0 else other.h)
+                            normal.y = -1 if remainingYVel>0 else 1
+                        if remainingXVel !=0:
+                            point.x = other.x + (-self.w if remainingYVel>0 else other.w)
+                            normal.x = 1 if remainingXVel>0 else -1
+
+                        contact = {
+                            'point': point,
+                            'normal': normal,
+                            'distance': (point.x-self.x+point.y-self.y)/abs(remainingYVel+remainingXVel)
+                        }
+                else:
+                    contact = isRayInRect(Vector(self.x, self.y), Vector(remainingXVel, remainingYVel),
+                        Rect(other.x - self.w, other.y - self.h, other.w + self.w, other.h + self.h))
+
                 if contact is not False and contact['distance'] < closestPoint['distance']:
                     closestPoint=contact
 
