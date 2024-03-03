@@ -25,8 +25,8 @@ def set_size(size):
 #window size
 set_size(7)
 
-from entity import disk, player, solid, spawn, tiles, spikes
-for entity in {disk, player, solid, spawn, tiles, spikes}:
+from entity import disk, player, solid, spawn, tiles, spikes, display
+for entity in {disk, player, solid, spawn, tiles, spikes, display}:
     entity.init()
 
 globalvars.CURR_SCREEN = TitleScreen(())
