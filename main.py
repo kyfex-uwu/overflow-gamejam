@@ -31,7 +31,7 @@ for entity in {disk, player, solid, spawn, tiles, spikes}:
     entity.init()
 test_level = level_loader.load_level("test_level")
 
-globalvars.CURR_SCREEN = LevelScreen((test_level,))
+globalvars.CURR_SCREEN = TitleScreen(())
 
 audio.playLevel()
 while running:
