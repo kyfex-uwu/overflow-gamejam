@@ -22,8 +22,9 @@ class Entity:
                 other.y - self.h <= self.y <= other.y + other.h)
 
     def render(self):
-        pygame.draw.rect(self.level.surface, pygame.Color(0,0,150),
-                         pygame.Rect(round(self.x), round(self.y), self.w, self.h))
+        pass
+        # pygame.draw.rect(self.level.surface, pygame.Color(0,0,150),
+        #                  pygame.Rect(round(self.x), round(self.y), self.w, self.h))
 
     def tick(self):
         pass

@@ -1,13 +1,13 @@
 import os
+
 import pygame
+
+from entity.entity import Entity
 from entity.solid import SolidEntity
 from level_loader import ENTITY_LOADERS
 
-class TileColl(SolidEntity):
-    def render(self): pass
 
-
-class Tiles(SolidEntity):
+class Tiles(Entity):
     def __init__(self, tiles, images):
         super().__init__(0, 0, 0, 0)
         self.w = len(tiles[0])
@@ -19,7 +19,7 @@ class Tiles(SolidEntity):
             self.tiles.append([])
             for x in range(self.w):
                 if self.tiles[y][x] is not None:
-                    self.tileColls.append(TileColl(x * 8, y * 8, 8, 8))
+                    self.tileColls.append(SolidEntity(x * 8, y * 8, 8, 8))
 
         self.images = {}
         for image in images:
