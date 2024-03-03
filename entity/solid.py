@@ -1,3 +1,5 @@
+import pygame
+
 import level_loader
 from entity.entity import Entity, Vector, Rect
 
@@ -127,6 +129,9 @@ class SolidEntity(Entity):
                 self.xVel = 0
             if closestPoint['normal'].y != 0:
                 self.yVel = 0
+
+    # def render(self):
+    #     pygame.draw.rect(self.level.surface, (255,0,0), (self.x,self.y,self.w,self.h))
 
 
 def init():

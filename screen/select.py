@@ -20,7 +20,6 @@ class SelectScreen(Screen):
 
         def on_click(screen):
             globalvars.CURR_SCREEN = LevelScreen((level_loader.load_level(screen),))
-            print(":(")
         self.components.append(Button(58,50,60,30, on_click))
 
         if SelectScreen.IMAGE is None:
