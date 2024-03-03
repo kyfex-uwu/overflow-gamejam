@@ -1,3 +1,4 @@
+import level_loader
 from entity.entity import Entity
 
 
@@ -21,3 +22,9 @@ class SpawnPointEntity(Entity):
 
     def render(self):
         pass
+
+def init():
+    def loader(strings):
+        return SpawnPointEntity(int(strings[0]), int(strings[1]), int(strings[2]), int(strings[3]),
+                                (int(strings[4]), int(strings[5])))
+    level_loader.ENTITY_LOADERS['spawn'] = loader

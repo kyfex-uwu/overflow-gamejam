@@ -1,11 +1,13 @@
 import pygame
 
+import level_loader
 from entity.gravity import GravityEntity
 
 
 class PlayerEntity(GravityEntity):
     def __init__(self):
         super().__init__(0,0, 6, 6)
+        self.z=10
         self.is_jumping=0
         self.spawnpoint = (0,0)
 
@@ -23,7 +25,7 @@ class PlayerEntity(GravityEntity):
             if self.is_jumping == 0: self.is_jumping = 10
             self.is_jumping -= 1
 
-            self.yVel -= 3
+            self.yVel -= 1.7*self.is_jumping/10
         else:
             self.is_jumping = 0
         if self.normal.y==1:
@@ -48,3 +50,6 @@ class PlayerEntity(GravityEntity):
     def kill(self):
         self.x = self.spawnpoint[0]
         self.y = self.spawnpoint[1]
+
+def init():
+    level_loader.ENTITY_LOADERS['player'] = lambda strings: PlayerEntity()

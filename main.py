@@ -2,13 +2,14 @@ import pygame
 import os
 from pygame import mixer
 
-from entity.disk import DiskEntity
-from entity.player import PlayerEntity
-from entity.solid import SolidEntity
-from entity.spawn import SpawnPointEntity
-from entity.tiles import Tiles
-from level import Level
-from entity.spikes import SpikeEntity
+import level_loader
+from entity import disk, player, solid, spawn, tiles
+
+disk.init()
+player.init()
+solid.init()
+spawn.init()
+tiles.init()
 
 # pygame setup
 pygame.init()
@@ -18,39 +19,8 @@ clock = pygame.time.Clock()
 running = True
 dt = 0
 
-
-
-
-test_level = Level(11,11)
-PlayerEntity().init(test_level)
-
-SpawnPointEntity(1,7,38,14,(17,11)).init(test_level)
-SpawnPointEntity(17,33,24,14,(26,37)).init(test_level)
-SpikeEntity(76.5,40.5,"up").init(test_level)
-SpikeEntity(47.5,31.75,"down").init(test_level)
-SpikeEntity(0,72.5,"up").init(test_level)
-SpikeEntity(-40,26,"right").init(test_level)
-DiskEntity(61,74).init(test_level)
-DiskEntity(62,73).init(test_level)
-DiskEntity(-79,2).init(test_level)
-
-Tiles({
-    "A": (7,5,"blueTiles"),
-    "B": (1,0,"blueTiles"),
-    "C": (2,0,"blueTiles"),
-    "D": (3,0,"blueTiles")
-},"""
-
-..........A
-
-BCCCCCD
-
-
-..BCCCCCCCD
-
-
-
-BCCCCCCCD""").init(test_level)
+test_level = level_loader.load_level("test_level")
+print(test_level.entities)
 
 #music
 #channel 1 is for main music
