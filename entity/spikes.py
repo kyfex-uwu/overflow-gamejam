@@ -22,7 +22,7 @@ class SpikeEntity(Entity):
         if(self.level.player_entity.colliding(self)):
             self.level.player_entity.kill()
 
-    def render(self, image="spikes"):
+    def render(self):
         self.level.surface.blit(SpikeEntity.IMAGE, (self.x-2, self.y-2), self.parse)
 
 def init():
