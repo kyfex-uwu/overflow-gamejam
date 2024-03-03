@@ -48,7 +48,7 @@ class DiskEntity(Entity):
 
             if self.win_effect.timer > 254:
                 globalvars.LEVELS_UNLOCKED +=1
-                globalvars.CURR_SCREEN = SelectScreen(())
+                globalvars.CURR_SCREEN=SelectScreen(())
 
 class WinEffect(Entity):
     def __init__(self, x, y):
