@@ -9,5 +9,5 @@ class GravityEntity(SolidEntity):
 
     def tick(self):
         self.xVel = (1 if self.xVel>=0 else -1) * min(abs(self.xVel), 3)
-        self.yVel = (1 if self.yVel+0.5>=0 else -1) * min(abs(self.yVel+0.5), 5)
+        self.yVel = (1 if self.yVel+0.3>=0 else -1) * min(abs(self.yVel+0.3), 5)
         super().tick()

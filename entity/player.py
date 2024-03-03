@@ -6,6 +6,9 @@ from entity.gravity import GravityEntity
 import audio
 
 
+MAX_XVEL=1.7
+X_ACCEL=0.4
+
 class PlayerEntity(GravityEntity):
     IMAGE = None
     def __init__(self):
@@ -31,16 +34,16 @@ class PlayerEntity(GravityEntity):
             if self.is_jumping == 0: self.is_jumping = 10
             self.is_jumping -= 1
 
-            self.yVel -= 1.7*self.is_jumping/10
+            self.yVel -= 1.2*self.is_jumping/10
         else:
             self.is_jumping = 0
         if self.normal.y==1:
             self.is_jumping=-1
 
         if keys[pygame.K_a]:
-            self.xVel = max(self.xVel - 0.5, -2)
+            self.xVel = max(self.xVel - X_ACCEL, -MAX_XVEL)
         if keys[pygame.K_d]:
-            self.xVel = min(self.xVel + 0.5, 2)
+            self.xVel = min(self.xVel + X_ACCEL, MAX_XVEL)
         if not keys[pygame.K_a] and not keys[pygame.K_d]:
             self.xVel *= 0.7
 
