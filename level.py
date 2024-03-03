@@ -3,7 +3,7 @@ from pygame import Surface
 
 from entity.entity import Vector
 
-PIXEL_WIDTH=5
+PIXEL_WIDTH=8
 vfactor = 3
 
 class Level:

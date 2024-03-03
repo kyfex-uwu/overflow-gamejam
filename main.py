@@ -1,5 +1,6 @@
 import pygame
 
+import level
 import level_loader
 from entity import disk, player, solid, spawn, tiles
 import audio
@@ -14,13 +15,17 @@ tiles.init()
 
 # pygame setup
 pygame.init()
-SCREEN = pygame.display.set_mode((1280, 720))
+SCREEN = None
 clock = pygame.time.Clock()
 running = True
 dt = 0
+def set_size(size):
+    global SCREEN
+    level.PIXEL_WIDTH=size
+    SCREEN = pygame.display.set_mode((level.PIXEL_WIDTH * 11 * 16, level.PIXEL_WIDTH * 11 * 9))
+set_size(7)
 
 test_level = level_loader.load_level("test_level")
-print(test_level.entities)
 
 audio.playLevel()
 while running:
