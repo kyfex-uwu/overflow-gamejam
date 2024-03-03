@@ -20,9 +20,8 @@ running = True
 dt = 0
 
 test_level = level_loader.load_level("test_level")
-print(test_level.entities)
 
-audio.playLevel()
+audio.title()
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
