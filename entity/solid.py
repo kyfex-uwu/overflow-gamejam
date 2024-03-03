@@ -1,3 +1,4 @@
+import level_loader
 from entity.entity import Entity, Vector, Rect
 
 epsilon = 0.00001
@@ -52,7 +53,7 @@ class SolidEntity(Entity):
     def __init__(self, x, y, w, h):
         super().__init__(x, y, w, h)
         self.normal = Vector(0, 0)
-        self.solid=True
+        self.solid = True
 
     def tick(self):
         self.move()
@@ -126,3 +127,9 @@ class SolidEntity(Entity):
                 self.xVel = 0
             if closestPoint['normal'].y != 0:
                 self.yVel = 0
+
+
+def init():
+    def loader(strings):
+        return SolidEntity(int(strings[0]), int(strings[1]), int(strings[2]), int(strings[3]))
+    level_loader.ENTITY_LOADERS['solid'] = loader

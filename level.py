@@ -12,7 +12,7 @@ class Level:
         self.h=max(18,h)
         self.x=0
         self.y=0
-        self.surface = Surface((self.w*8,self.h*8))
+        self.surface = Surface((self.w*8,self.h*8), flags=pygame.SRCALPHA)
         self.screenSize=Vector(0,0)
 
         self.entities = []
@@ -33,7 +33,7 @@ class Level:
         if keys[pygame.K_RIGHT]:
             self.x = min(self.w*8-dest.get_width()/PIXEL_WIDTH, self.x + vfactor)
 
-        self.surface.fill(pygame.Color(0,0,0))
+        self.surface.fill(pygame.Color(30,30,60))
 
         for entity in self.entities:
             entity.render()
@@ -42,5 +42,6 @@ class Level:
             (dest.get_width(),dest.get_height()),
             dest)
     def tick(self):
+        self.entities.sort(key=lambda e: e.z)
         for entity in self.entities:
             entity.tick()

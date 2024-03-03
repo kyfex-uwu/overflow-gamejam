@@ -6,6 +6,7 @@ class Entity:
         self.level = None
         self.x = x
         self.y = y
+        self.z=0
         self.w = w
         self.h = h
         self.xVel = 0

@@ -1,34 +1,28 @@
 import os
 import pygame
 from entity.solid import SolidEntity
+from level_loader import ENTITY_LOADERS
 
 class TileColl(SolidEntity):
     def render(self): pass
 
+
 class Tiles(SolidEntity):
-    def __init__(self, palette, tileStr: str):
+    def __init__(self, tiles, images):
         super().__init__(0, 0, 0, 0)
-        self.palette = palette
+        self.w = len(tiles[0])
+        self.h = len(tiles)
 
-        rows = tileStr[1:].split("\n")
-        self.w = len(sorted(rows, key=lambda row: len(row), reverse=True)[0])
-        self.h = len(rows)
-
-        self.tiles = []
+        self.tiles = tiles
         self.tileColls = []
-        paletteImages = set()
         for y in range(self.h):
             self.tiles.append([])
-            rowLength = len(rows[y])
             for x in range(self.w):
-                if x >= rowLength or rows[y][x] == ".":
-                    self.tiles[y].append(None)
-                else:
-                    self.tiles[y].append(palette[rows[y][x]])
-                    self.tileColls.append(TileColl(x*8,y*8,8,8))
-                    paletteImages.add(palette[rows[y][x]][2])
+                if self.tiles[y][x] is not None:
+                    self.tileColls.append(TileColl(x * 8, y * 8, 8, 8))
+
         self.images = {}
-        for image in paletteImages:
+        for image in images:
             self.images[image] = pygame.image.load(os.path.join('resources', image + '.png')).convert_alpha()
 
     def init(self, level):
@@ -41,4 +35,6 @@ class Tiles(SolidEntity):
             for x in range(self.w):
                 if self.tiles[y][x] is None: continue
                 self.level.surface.blit(self.images[self.tiles[y][x][2]], (x * 8, y * 8),
-                                        (self.tiles[y][x][0]*8,self.tiles[y][x][1]*8, 8, 8))
+                                        (self.tiles[y][x][0] * 8, self.tiles[y][x][1] * 8, 8, 8))
+def init():
+    ENTITY_LOADERS['tiles'] = lambda args: Tiles(*args)
