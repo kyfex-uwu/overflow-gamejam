@@ -42,7 +42,7 @@ class Level:
 
         pygame.draw.rect(self.surface, (0,0,0), (self.x+self.screenSize.x-39, self.y, 39, 7))
 
-        time=round(globalvars.TIMER*1000)*9999
+        time=round(globalvars.TIMER*1000)
         drawNum(time%10, self.x+self.screenSize.x-4, self.y+1, self.surface)
         time=math.floor(time/10)
         drawNum(time%10, self.x+self.screenSize.x-8, self.y+1, self.surface)
