@@ -22,12 +22,12 @@ class SelectScreen(Screen):
 
         def on_click(level):
             def new():
-                globalvars.CURR_SCREEN = LevelScreen((level_loader.load_level("level"+str(level)),))
+                globalvars.CURR_SCREEN = LevelScreen((level_loader.load_level(level),))
             return new
-        self.components.append(Button(10,40,9, 9, on_click(1)))
-        self.components.append(Button(40,40,9, 9, on_click(2)))
-        self.components.append(Button(10,70,9, 9, on_click(3)))
-        self.components.append(Button(40,70,9, 9, on_click(4)))
+        self.components.append(Button(10,40,9, 9, on_click("level1")))
+        self.components.append(Button(40,40,9, 9, on_click("level2")))
+        self.components.append(Button(10,70,9, 9, on_click("level3")))
+        self.components.append(Button(40,70,9, 9, on_click("level4")))
 
         if SelectScreen.IMAGE is None:
             SelectScreen.IMAGE = pygame.image.load(os.path.join('resources', 'levelSelect.png')).convert_alpha()
@@ -46,3 +46,5 @@ class SelectScreen(Screen):
 
         self.screen.blit(SelectScreen.BUTTON_IMG, (10,40), (0, 0, 9, 9))
         self.screen.blit(SelectScreen.BUTTON_IMG, (40,40), (9, 0, 9, 9))
+        self.screen.blit(SelectScreen.BUTTON_IMG, (10,70), (18,0, 9, 9))
+        self.screen.blit(SelectScreen.BUTTON_IMG, (40,70), (27, 0, 9, 9))
