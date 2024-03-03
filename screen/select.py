@@ -14,20 +14,25 @@ from screen.screen import Screen
 
 class SelectScreen(Screen):
     IMAGE = None
+    BUTTON_IMG = None
     def __init__(self, args: tuple):
         super().__init__(args)
         self.wrap_amt = 0
         audio.title()
 
         def on_click(level):
-            globalvars.CURR_SCREEN = LevelScreen((level_loader.load_level(level),))
-        self.components.append(Button(10,40,25,25, on_click, self, 1))
-        self.components.append(Button(40,40,25,25, on_click, self, 2))
-        self.components.append(Button(10,70,25,25, on_click, self, 3))
-        self.components.append(Button(40,70,25,25, on_click, self, 4))
+            def new():
+                globalvars.CURR_SCREEN = LevelScreen((level_loader.load_level("level"+str(level)),))
+            return new
+        self.components.append(Button(10,40,9, 9, on_click(1)))
+        self.components.append(Button(40,40,9, 9, on_click(2)))
+        self.components.append(Button(10,70,9, 9, on_click(3)))
+        self.components.append(Button(40,70,9, 9, on_click(4)))
 
         if SelectScreen.IMAGE is None:
             SelectScreen.IMAGE = pygame.image.load(os.path.join('resources', 'levelSelect.png')).convert_alpha()
+        if SelectScreen.BUTTON_IMG is None:
+            SelectScreen.BUTTON_IMG = pygame.image.load(os.path.join('resources', 'buttons.png')).convert_alpha()
 
     def render(self, screen: Surface):
         self.screen = screen
@@ -38,3 +43,6 @@ class SelectScreen(Screen):
         screen.blit(SelectScreen.IMAGE,(0,3), (2-amt,0,176,37))
         screen.blit(SelectScreen.IMAGE,(amt-12,3), (167,0,5,37))
         screen.blit(SelectScreen.IMAGE,(175+amt,3), (0,0,5,37))
+
+        self.screen.blit(SelectScreen.BUTTON_IMG, (10,40), (0, 0, 9, 9))
+        self.screen.blit(SelectScreen.BUTTON_IMG, (40,40), (9, 0, 9, 9))
