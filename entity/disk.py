@@ -45,7 +45,7 @@ class DiskEntity(Entity):
             self.level.player_entity.yVel*=(1-self.collected)
             self.level.player_entity.xVel*=(1-self.collected)
 
-            if self.win_effect.timer > 240:
+            if self.win_effect.timer > 254:
                 globalvars.LEVELS_UNLOCKED +=1
                 globalvars.CURR_SCREEN = SelectScreen(())
 

@@ -17,6 +17,7 @@ class SelectScreen(Screen):
     def __init__(self, args: tuple):
         super().__init__(args)
         self.wrap_amt = 0
+        audio.title()
 
         def on_click(screen):
             globalvars.CURR_SCREEN = LevelScreen((level_loader.load_level(screen),))
