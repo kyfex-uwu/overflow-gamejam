@@ -1,4 +1,6 @@
 import pygame
+import os
+from pygame import mixer
 
 from entity.disk import DiskEntity
 from entity.player import PlayerEntity
@@ -10,65 +12,52 @@ from entity.spikes import SpikeEntity
 
 # pygame setup
 pygame.init()
+mixer.init()
 SCREEN = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 running = True
 dt = 0
 
 
-test_level = Level(25,19)
+
+
+test_level = Level(11,11)
 PlayerEntity().init(test_level)
 
-SpawnPointEntity(1,1,28,20,(15,11)).init(test_level)
-SpawnPointEntity(71,45,14,16,(78,53)).init(test_level)
-SolidEntity(41,89,6,6).init(test_level)
-SpawnPointEntity(77,91,20,16,(87,99)).init(test_level)
-DiskEntity(77,91).init(test_level)
-SpikeEntity(50, 50, "up").init(test_level)
-SpikeEntity(10, 10, "down").init(test_level)
-SpikeEntity(20, 20, "left").init(test_level)
-SpikeEntity(30, 30, "right").init(test_level)
+SpawnPointEntity(1,7,38,14,(17,11)).init(test_level)
+SpawnPointEntity(17,33,24,14,(26,37)).init(test_level)
+SpikeEntity(76.5,40.5,"up").init(test_level)
+SpikeEntity(47.5,31.75,"down").init(test_level)
+SpikeEntity(0,72.5,"up").init(test_level)
+SpikeEntity(-40,26,"right").init(test_level)
+DiskEntity(61,74).init(test_level)
+DiskEntity(62,73).init(test_level)
+DiskEntity(-79,2).init(test_level)
 
 Tiles({
-    "A": (0,1,"blueTiles"),
+    "A": (7,5,"blueTiles"),
     "B": (1,0,"blueTiles"),
-    "C": (3,0,"blueTiles"),
-    "D": (0,2,"blueTiles"),
-    "E": (2,0,"blueTiles"),
-    "F": (5,3,"blueTiles"),
-    "G": (4,2,"blueTiles"),
-    "H": (5,1,"blueTiles"),
-    "I": (5,2,"blueTiles"),
-    "J": (5,0,"blueTiles"),
-    "K": (4,1,"blueTiles"),
-    "L": (7,5,"blueTiles"),
-    "M": (4,3,"blueTiles"),
-    "N": (4,0,"blueTiles"),
-    "O": (7,5,"test2"),
-    "P": (0,3,"blueTiles"),
-    "Q": (1,0,"test2"),
-    "R": (2,0,"test2"),
-    "S": (3,0,"test2")
+    "C": (2,0,"blueTiles"),
+    "D": (3,0,"blueTiles")
 },"""
 
-.........A
-.BC......D
-....BEEC.D
-.........D
-.......BEF
+..........A
 
-......BEEEC
-
-.....A
-....GHI
-...BJ.KC
-...LMNF.......O
-.....P...QRRRRRS
-...................
+BCCCCCD
 
 
-.........................
-.......................R""").init(test_level)
+..BCCCCCCCD
+
+
+
+BCCCCCCCD""").init(test_level)
+
+#music
+#channel 1 is for main music
+#channel 2 is for sound effects
+mixer.Channel(1)
+mainTheme = mixer.Sound(os.path.join("resources", "audio", "Platforms-in-the-Sky.ogg"))
+mixer.Channel(1).play(mainTheme, loops= -1)
 
 while running:
     for event in pygame.event.get():
