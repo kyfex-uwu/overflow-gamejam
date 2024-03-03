@@ -56,8 +56,11 @@ BCCCCCCCD""").init(test_level)
 #channel 1 is for main music
 #channel 2 is for sound effects
 mixer.Channel(1)
+mixer.Channel(2)
 mainTheme = mixer.Sound(os.path.join("resources", "audio", "Platforms-in-the-Sky.ogg"))
+levelComplete = mixer.Sound(os.path.join("resources", "audio", "Level-Complete.ogg"))
 mixer.Channel(1).play(mainTheme, loops= -1)
+#mixer.Channel(2).play(levelComplete)
 
 while running:
     for event in pygame.event.get():
