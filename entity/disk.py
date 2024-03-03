@@ -5,6 +5,7 @@ import pygame
 
 import level_loader
 from entity.entity import Entity
+from screen.title import TitleScreen
 import audio
 
 class DiskEntity(Entity):
@@ -30,7 +31,10 @@ class DiskEntity(Entity):
             win = WinEffect(self.x+8,self.y+4)
             win.init(self.level)
             if win.timer > 254.99:
-                self.surface.fill((0,0,0))
+                global LEVELS_UNLOCKED
+                LEVELS_UNLOCKED = LEVELS_UNLOCKED + 1
+                global CURR_SCREEN
+                CURR_SCREEN = TitleScreen(())
         if self.collected is not False:
             self.collected = min(1,self.collected+0.005)
 

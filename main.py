@@ -11,6 +11,7 @@ from screen.title import TitleScreen
 pygame.init()
 SCREEN = None
 SMALL_SCREEN = Surface((11*16, 11*9))
+LEVELS_UNLOCKED = 1
 clock = pygame.time.Clock()
 running = True
 dt = 0
