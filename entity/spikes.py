@@ -1,6 +1,7 @@
 import pygame
 import os
 
+import level_loader
 from entity.entity import Entity
 
 class SpikeEntity(Entity):
@@ -24,3 +25,6 @@ class SpikeEntity(Entity):
 
     def render(self, image="spikes"):
         self.level.surface.blit(SpikeEntity.IMAGE, (self.x, self.y), self.parse)
+
+def init():
+    level_loader.ENTITY_LOADERS["spikes"] = lambda args: SpikeEntity(int(args[0]), int(args[1]), args[2])
