@@ -22,7 +22,6 @@ class TitleScreen(Screen):
 
         def on_click(screen):
             globalvars.CURR_SCREEN = SelectScreen(())
-            print(":(")
         self.components.append(Button(58,50,60,30, on_click))
 
         if TitleScreen.IMAGE is None:
