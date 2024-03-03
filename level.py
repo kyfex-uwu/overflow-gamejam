@@ -4,7 +4,6 @@ from pygame import Surface
 from entity.entity import Vector
 
 PIXEL_WIDTH=8
-vfactor = 3
 
 class Level:
     def __init__(self, w, h): # in tiles
@@ -12,6 +11,7 @@ class Level:
         self.h=max(18,h)
         self.x=0
         self.y=0
+        self.xVel=0
         self.surface = Surface((self.w*8,self.h*8), flags=pygame.SRCALPHA)
         self.screenSize=Vector(11*16,11*9)
 
@@ -21,10 +21,14 @@ class Level:
 
     def render(self, dest: Surface):
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
-            self.x = max(0, self.x - vfactor)
         if keys[pygame.K_RIGHT]:
-            self.x = min(self.w*8-dest.get_width(), self.x + vfactor)
+            self.xVel=min(self.xVel+0.4,2)
+        if keys[pygame.K_LEFT]:
+            self.xVel=max(self.xVel-0.4,-2)
+
+        self.x = max(0, min(self.w*8-dest.get_width(),
+                            self.x + self.xVel))
+        self.xVel*=0.8
 
         if self.player_entity is not None:
             self.y = max(0, min(self.h*8-dest.get_height(),
