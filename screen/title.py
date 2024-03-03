@@ -19,8 +19,8 @@ class TitleScreen(Screen):
         self.wrap_amt = 0
         audio.title()
 
-        def on_click():
-            globalvars.CURR_SCREEN = LevelScreen((level_loader.load_level("test3"),))
+        def on_click(screen):
+            globalvars.CURR_SCREEN = LevelScreen((level_loader.load_level(screen),))
             print(":(")
         self.components.append(Button(58,50,60,30, on_click))
 
