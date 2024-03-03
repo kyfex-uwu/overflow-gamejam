@@ -18,5 +18,3 @@ class SizedComponent(PositionedComponent):
         super().__init__(x,y)
         self.w=w
         self.h=h
-    def render(self, screen):
-        pygame.draw.rect(screen, (255,0,0), (self.x,self.y,self.w,self.h))

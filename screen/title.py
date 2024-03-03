@@ -36,3 +36,5 @@ class TitleScreen(Screen):
         screen.blit(TitleScreen.IMAGE,(amt-10,3), (169,0,5,33))
         screen.blit(TitleScreen.IMAGE,(175+amt,3), (0,0,7,33))
 
+        pygame.draw.rect(screen, (255,255,255), (58, 50, 60, 30))
+
