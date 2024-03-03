@@ -28,7 +28,7 @@ class TitleScreen(Screen):
             TitleScreen.IMAGE = pygame.image.load(os.path.join('resources', 'title.png')).convert_alpha()
 
     def render(self, screen: Surface):
-        screen.fill(pygame.Color(30,30,60))
+        screen.fill((30,30,60))
         super().render(screen)
         self.wrap_amt = (self.wrap_amt+0.015)%(math.pi*2)
         amt = round(math.sin(self.wrap_amt)*8+2)
