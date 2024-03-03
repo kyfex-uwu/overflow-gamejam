@@ -13,34 +13,28 @@ class Level:
         self.x=0
         self.y=0
         self.surface = Surface((self.w*8,self.h*8), flags=pygame.SRCALPHA)
-        self.screenSize=Vector(0,0)
+        self.screenSize=Vector(11*16,11*9)
 
         self.entities = []
         self.default_spawn = None
         self.player_entity = None
-
-    def set_screen_size(self, dest:Surface):
-        self.screenSize = Vector(dest.get_width() / PIXEL_WIDTH, dest.get_height() / PIXEL_WIDTH)
 
     def render(self, dest: Surface):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_UP]:
             self.y = max(0, self.y - vfactor)
         if keys[pygame.K_DOWN]:
-            self.y = min(self.h*8-dest.get_height()/PIXEL_WIDTH, self.y + vfactor)
+            self.y = min(self.h*8-dest.get_height(), self.y + vfactor)
         if keys[pygame.K_LEFT]:
             self.x = max(0, self.x - vfactor)
         if keys[pygame.K_RIGHT]:
-            self.x = min(self.w*8-dest.get_width()/PIXEL_WIDTH, self.x + vfactor)
+            self.x = min(self.w*8-dest.get_width(), self.x + vfactor)
 
         self.surface.fill(pygame.Color(30,30,60))
 
         for entity in self.entities:
             entity.render()
-        pygame.transform.scale(self.surface.subsurface(
-                (self.x,self.y,dest.get_width()/PIXEL_WIDTH,dest.get_height()/PIXEL_WIDTH)),
-            (dest.get_width(),dest.get_height()),
-            dest)
+        dest.blit(self.surface, (-self.x,-self.y,dest.get_width(),dest.get_height()))
     def tick(self):
         self.entities.sort(key=lambda e: e.z)
         for entity in self.entities:
