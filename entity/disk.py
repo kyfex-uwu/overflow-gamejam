@@ -7,6 +7,7 @@ import globalvars
 import level_loader
 from entity.entity import Entity
 from screen.title import TitleScreen
+from screen.select import SelectScreen
 import audio
 
 class DiskEntity(Entity):
@@ -46,7 +47,7 @@ class DiskEntity(Entity):
 
             if self.win_effect.timer > 240:
                 globalvars.LEVELS_UNLOCKED +=1
-                globalvars.CURR_SCREEN = TitleScreen(())
+                globalvars.CURR_SCREEN = SelectScreen(())
 
 class WinEffect(Entity):
     def __init__(self, x, y):
