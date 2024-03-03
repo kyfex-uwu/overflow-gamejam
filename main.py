@@ -34,7 +34,6 @@ CURR_SCREEN = LevelScreen((test_level,))
 
 CURR_SCREEN = LevelScreen((test_level,))
 
-audio.playLevel()
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
