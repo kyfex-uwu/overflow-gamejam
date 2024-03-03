@@ -30,13 +30,17 @@ class PlayerEntity(GravityEntity):
 
     def tick(self):
         keys = pygame.key.get_pressed()
+        cancel_jump=False
         if keys[pygame.K_w] and (self.normal.y==-1 or self.is_jumping > 0):
-            if self.is_jumping == 0: self.is_jumping = 10
+            if self.is_jumping == 0: self.is_jumping = 15
             self.is_jumping -= 1
 
-            self.yVel -= 1.2*self.is_jumping/10
+            self.yVel = self.yVel*0.5-3*self.is_jumping/15
         else:
-            self.is_jumping = 0
+            cancel_jump=True
+        if self.is_jumping>0 and keys[pygame.K_w] is False: self.yVel*=0.3
+        if cancel_jump: self.is_jumping = 0
+
         if self.normal.y==1:
             self.is_jumping=-1
 

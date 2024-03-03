@@ -6,7 +6,7 @@ from entity.entity import Entity
 class SpikeEntity(Entity):
     IMAGE = None
     def __init__(self, x, y, direction="up"):
-        super().__init__(x, y, 8, 8)
+        super().__init__(x, y, 4, 4)
         self.parse=(8,8,8,8)
         if direction=="up":
             self.parse=(0,0,8,8)
@@ -23,7 +23,7 @@ class SpikeEntity(Entity):
             self.level.player_entity.kill()
 
     def render(self, image="spikes"):
-        self.level.surface.blit(SpikeEntity.IMAGE, (self.x, self.y), self.parse)
+        self.level.surface.blit(SpikeEntity.IMAGE, (self.x-2, self.y-2), self.parse)
 
 def init():
     level_loader.ENTITY_LOADERS['spike'] = lambda args: SpikeEntity(int(args[0]), int(args[1]), args[2])
