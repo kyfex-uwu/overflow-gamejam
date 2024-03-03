@@ -1,4 +1,4 @@
-31;13
-spawn:3,1,26,20,13,8;display:32,16,;solid:80,-55,8,55;disk:60,51;spike:162,34,up;spike:202,34,up;spike:146,50,down;spike:194,50,down;spike:42,42,left
-blueTiles:C10D20E30F42J43G50H51A01B02I00
-..........A;..........B;CDDD.E....B.............A;..........B.............B;..........B.............B;......FDDDG.......CDDDDDHDDDDDE;I...CDG...B;......B...B;..I...B...B...............CDDE;......B...B.........I...I;......B...B...CDDDE;....I.B...B;......JDDDHDDE
+22;13
+disk:110,15
+blueTiles:A10H12L15B20K21J22F31M32I45D52C01E05G02
+ABBBBBBBBBBBBBBBBBBBBB;;;;;C............ABBBBBBBD;EF...................G;HIF..................G;HJIF.................G;HJJIKKKKKKKKKKKKKKKKKL;HJJJJJJJJJJJJJJJJJJJJM;HJJJJJJJJJJJJJJJJJJJJM;HJJJJJJJJJJJJJJJJJJJJM

@@ -75,6 +75,8 @@ class PlayerEntity(GravityEntity):
         audio.hurt()
         self.x = self.spawnpoint[0]
         self.y = self.spawnpoint[1]
+        self.xVel = 0
+        self.yVel = 0
         self.level.x = self.x+self.w/2-self.level.screenSize.x/2
         self.level.y = self.level.player_entity.y - self.level.screenSize.y / 5 * 3
 
