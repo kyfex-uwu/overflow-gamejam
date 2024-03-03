@@ -24,14 +24,14 @@ def set_size(size):
     SCREEN = pygame.display.set_mode((level.PIXEL_WIDTH * 11 * 16, level.PIXEL_WIDTH * 11 * 9))
 
 #window size
-set_size(4)
+set_size(8)
 
 from entity import disk, player, solid, spawn, tiles, spikes
 for entity in {disk, player, solid, spawn, tiles, spikes}:
     entity.init()
 test_level = level_loader.load_level("test_level")
 
-globalvars.CURR_SCREEN = TitleScreen(())
+globalvars.CURR_SCREEN = LevelScreen((test_level,))
 
 while running:
     for event in pygame.event.get():

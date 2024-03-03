@@ -8,4 +8,5 @@ class Button(SizedComponent):
         super().__init__(x, y, w, h)
     def render(self, screen):
         super().render(screen)
-        print(pygame.mouse.get_pos())
+        if pygame.mouse.get_pos()[0] <= x and pygame.mouse.get_pos()[0] >= x+w:
+            pass

@@ -55,14 +55,14 @@ class PlayerEntity(GravityEntity):
 
         self.parse=(12,0,6,6)
         
-        if self.xVel >= 1:
+        if self.xVel >= 0.9:
             self.parse=(0,0,6,6)
-        elif self.xVel <= -1:
+        elif self.xVel <= -0.9:
             self.parse=(6,0,6,6)
         elif self.yVel < 0:
-            self.parse=(0,6,0,0)
-        elif self.is_jumping :
             self.parse=(6,6,6,6)
+        elif self.yVel > 0:
+            self.parse=(0,6,6,6)
 
     def kill(self):
         audio.hurt()
