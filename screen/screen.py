@@ -2,6 +2,7 @@
 
 class Screen:
     def __init__(self, args:tuple):
-        pass
+        self.components = []
     def render(self, screen):
-        pass
+        for component in self.components:
+            component.render(screen)

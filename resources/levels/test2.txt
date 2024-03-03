@@ -1,0 +1,4 @@
+6;13
+spike:28,45,down;spike:46,49,up;spike:65,49,right;spike:89,50,left
+test:A00
+;;;;;;;;;;.....A;;

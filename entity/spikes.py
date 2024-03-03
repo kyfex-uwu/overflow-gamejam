@@ -26,4 +26,4 @@ class SpikeEntity(Entity):
         self.level.surface.blit(SpikeEntity.IMAGE, (self.x, self.y), self.parse)
 
 def init():
-    level_loader.ENTITY_LOADERS["spikes"] = lambda args: SpikeEntity(int(args[0]), int(args[1]), args[2])
+    level_loader.ENTITY_LOADERS['spike'] = lambda args: SpikeEntity(int(args[0]), int(args[1]), args[2])

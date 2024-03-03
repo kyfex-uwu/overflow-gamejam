@@ -3,6 +3,7 @@ import os
 
 import pygame
 
+import globalvars
 import level_loader
 from entity.entity import Entity
 from screen.title import TitleScreen
@@ -15,6 +16,7 @@ class DiskEntity(Entity):
         self.z=-10
         self.float_offs=0
         self.collected=False
+        self.win_effect=None
 
         if DiskEntity.IMAGE is None:
             DiskEntity.IMAGE = pygame.image.load(os.path.join('resources', 'entity', 'disk.png'))
@@ -28,13 +30,8 @@ class DiskEntity(Entity):
         if self.collected is False and self.level.player_entity.colliding(self):
             self.collected=0
             audio.collect()
-            win = WinEffect(self.x+8,self.y+4)
-            win.init(self.level)
-            if win.timer > 254.99:
-                global LEVELS_UNLOCKED
-                LEVELS_UNLOCKED = LEVELS_UNLOCKED + 1
-                global CURR_SCREEN
-                CURR_SCREEN = TitleScreen(())
+            self.win_effect = WinEffect(self.x+8,self.y+4)
+            self.win_effect.init(self.level)
         if self.collected is not False:
             self.collected = min(1,self.collected+0.005)
 
@@ -47,6 +44,10 @@ class DiskEntity(Entity):
             self.level.player_entity.yVel*=(1-self.collected)
             self.level.player_entity.xVel*=(1-self.collected)
 
+            if self.win_effect.timer > 240:
+                globalvars.LEVELS_UNLOCKED +=1
+                globalvars.CURR_SCREEN = TitleScreen(())
+
 class WinEffect(Entity):
     def __init__(self, x, y):
         super().__init__(x, y, 0, 0)
@@ -56,8 +57,9 @@ class WinEffect(Entity):
         super().init(level)
         self.surface = pygame.Surface(self.level.surface.get_size())
     def render(self):
-        self.timer=min(255,self.timer*0.98+255*0.02)
-        self.surface.fill((self.timer, self.timer, self.timer))
+        self.timer+=1
+        to_color = 255-math.pow(self.timer/15-16, 2)
+        self.surface.fill((to_color,to_color,to_color))
         self.level.surface.blit(self.surface, (self.level.x,self.level.y), special_flags=pygame.BLEND_ADD)
             
 

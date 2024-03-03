@@ -1,6 +1,7 @@
 import pygame
 from pygame import Surface
 
+import globalvars
 import level
 import level_loader
 import audio
@@ -30,16 +31,14 @@ for entity in {disk, player, solid, spawn, tiles, spikes}:
     entity.init()
 test_level = level_loader.load_level("test_level")
 
-CURR_SCREEN = LevelScreen((test_level,))
-
-CURR_SCREEN = LevelScreen((test_level,))
+globalvars.CURR_SCREEN = TitleScreen(())
 
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    CURR_SCREEN.render(SMALL_SCREEN)
+    globalvars.CURR_SCREEN.render(SMALL_SCREEN)
     pygame.transform.scale(SMALL_SCREEN, SCREEN.get_size(), SCREEN)
 
     pygame.display.flip()
