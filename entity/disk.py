@@ -27,7 +27,10 @@ class DiskEntity(Entity):
         if self.collected is False and self.level.player_entity.colliding(self):
             self.collected=0
             audio.collect()
-            WinEffect(self.x+8,self.y+4).init(self.level)
+            win = WinEffect(self.x+8,self.y+4)
+            win.init(self.level)
+            if win.timer > 254.99:
+                self.surface.fill((0,0,0))
         if self.collected is not False:
             self.collected = min(1,self.collected+0.005)
 
@@ -52,6 +55,8 @@ class WinEffect(Entity):
         self.timer=min(255,self.timer*0.98+255*0.02)
         self.surface.fill((self.timer, self.timer, self.timer))
         self.level.surface.blit(self.surface, (self.level.x,self.level.y), special_flags=pygame.BLEND_ADD)
+            
+
 
 def init():
     def loader(strings):

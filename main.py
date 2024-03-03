@@ -23,11 +23,13 @@ def set_size(size):
     global SCREEN
     level.PIXEL_WIDTH=size
     SCREEN = pygame.display.set_mode((level.PIXEL_WIDTH * 11 * 16, level.PIXEL_WIDTH * 11 * 9))
-set_size(7)
+
+#window size
+set_size(4)
 
 test_level = level_loader.load_level("test_level")
 
-audio.title()
+audio.playLevel()
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

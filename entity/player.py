@@ -2,6 +2,7 @@ import pygame
 
 import level_loader
 from entity.gravity import GravityEntity
+import audio
 
 
 class PlayerEntity(GravityEntity):
@@ -48,6 +49,7 @@ class PlayerEntity(GravityEntity):
         super().tick()
 
     def kill(self):
+        audio.hurt()
         self.x = self.spawnpoint[0]
         self.y = self.spawnpoint[1]
 
