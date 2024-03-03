@@ -8,3 +8,5 @@ MOUSE = {
     "p_left": False,
     "p_right": False
 }
+
+TIMER = 0

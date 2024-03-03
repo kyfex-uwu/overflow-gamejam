@@ -42,6 +42,9 @@ while running:
     globalvars.MOUSE["left"] = state[0]
     globalvars.MOUSE["right"] = state[2]
 
+    if isinstance(globalvars.CURR_SCREEN, LevelScreen) and not globalvars.CURR_SCREEN.level.finished:
+        globalvars.TIMER+=dt
+
     globalvars.CURR_SCREEN.render(SMALL_SCREEN)
     pygame.transform.scale(SMALL_SCREEN, SCREEN.get_size(), SCREEN)
 
