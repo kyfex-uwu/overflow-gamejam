@@ -48,9 +48,9 @@ class PlayerEntity(GravityEntity):
             self.xVel *= 0.7
 
         if self.x+self.w < self.level.x:
-            self.x = self.level.x+self.level.screenSize.x
+            self.x += self.level.screenSize.x+self.w-1
         elif self.x > self.level.x+self.level.screenSize.x:
-            self.x = self.level.x-self.w
+            self.x -= self.level.screenSize.x+self.w-1
         if self.y+self.h > self.level.y + self.level.h*8:
             self.kill()
 
@@ -71,6 +71,8 @@ class PlayerEntity(GravityEntity):
         audio.hurt()
         self.x = self.spawnpoint[0]
         self.y = self.spawnpoint[1]
+        self.level.x = self.x+self.w/2-self.level.screenSize.x/2
+        self.level.y = self.level.player_entity.y - self.level.screenSize.y / 5 * 3
 
     def render(self, image="spikes"):
         self.level.surface.blit(PlayerEntity.IMAGE, (round(self.x), round(self.y)), self.parse)

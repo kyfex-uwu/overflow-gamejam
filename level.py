@@ -26,19 +26,19 @@ class Level:
         if keys[pygame.K_LEFT]:
             self.xVel=max(self.xVel-0.4,-2)
 
-        self.x = max(0, min(self.w*8-dest.get_width(),
+        self.x = max(0, min(self.w*8-self.screenSize.x,
                             self.x + self.xVel))
         self.xVel*=0.8
 
         if self.player_entity is not None:
-            self.y = max(0, min(self.h*8-dest.get_height(),
-                                self.y*0.9 + (self.player_entity.y-dest.get_height()/5*3) * 0.1))
+            self.y = max(0, min(self.h*8-self.screenSize.y,
+                                self.y*0.9 + (self.player_entity.y-self.screenSize.y/5*3) * 0.1))
 
         self.surface.fill(pygame.Color(30,30,60))
 
         for entity in self.entities:
             entity.render()
-        dest.blit(self.surface, (round(-self.x),round(-self.y),dest.get_width(),dest.get_height()))
+        dest.blit(self.surface, (round(-self.x),round(-self.y),self.screenSize.x,self.screenSize.y))
     def tick(self):
         self.entities.sort(key=lambda e: e.z)
         for entity in self.entities:
