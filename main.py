@@ -1,11 +1,10 @@
 import pygame
-from pygame import mixer
 
 import level_loader
 from entity import disk, player, solid, spawn, tiles
 import audio
 
-audio.audioRunner()
+audio
 
 disk.init()
 player.init()
@@ -23,6 +22,7 @@ dt = 0
 test_level = level_loader.load_level("test_level")
 print(test_level.entities)
 
+audio.playLevel()
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:

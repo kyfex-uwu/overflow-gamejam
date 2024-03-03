@@ -5,7 +5,7 @@ import pygame
 
 import level_loader
 from entity.entity import Entity
-from audio import audioRunner
+import audio
 
 class DiskEntity(Entity):
     IMAGE = None
@@ -26,6 +26,7 @@ class DiskEntity(Entity):
         super().tick()
         if self.collected is False and self.level.player_entity.colliding(self):
             self.collected=0
+            audio.collect()
             WinEffect(self.x+8,self.y+4).init(self.level)
         if self.collected is not False:
             self.collected = min(1,self.collected+0.005)
