@@ -31,7 +31,6 @@ for entity in {disk, player, solid, spawn, tiles, spikes}:
 
 globalvars.CURR_SCREEN = TitleScreen(())
 
-audio.playLevel()
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
