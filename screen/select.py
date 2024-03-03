@@ -25,7 +25,7 @@ class SelectScreen(Screen):
                 globalvars.CURR_SCREEN = LevelScreen((level_loader.load_level(level),))
             return new
         self.components.append(Button(10,40,9, 9, on_click("level1")))
-        self.components.append(Button(40,40,9, 9, on_click("level2")))
+        self.components.append(Button(40,40,9, 9, on_click("k_level1")))
         self.components.append(Button(10,70,9, 9, on_click("level3")))
         self.components.append(Button(40,70,9, 9, on_click("level4")))
 

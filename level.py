@@ -12,7 +12,7 @@ PIXEL_WIDTH=8
 class Level:
     def __init__(self, w, h): # in tiles
         self.w=max(22,w)
-        self.h=max(18,h)
+        self.h=max(13,h)
         self.x=0
         self.y=0
         self.xVel=0
