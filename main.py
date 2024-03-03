@@ -2,7 +2,6 @@ import pygame
 from pygame import Surface
 
 import globalvars
-import level
 import level_loader
 import audio
 from screen.level import LevelScreen
@@ -20,23 +19,29 @@ dt = 0
 
 def set_size(size):
     global SCREEN
-    level.PIXEL_WIDTH = size
-    SCREEN = pygame.display.set_mode((level.PIXEL_WIDTH * 11 * 16, level.PIXEL_WIDTH * 11 * 9))
+    globalvars.PIXEL_WIDTH = size
+    SCREEN = pygame.display.set_mode((globalvars.PIXEL_WIDTH * 11 * 16, globalvars.PIXEL_WIDTH * 11 * 9))
 
 #window size
-set_size(8)
+set_size(7)
 
 from entity import disk, player, solid, spawn, tiles, spikes
 for entity in {disk, player, solid, spawn, tiles, spikes}:
     entity.init()
-test_level = level_loader.load_level("test_level")
 
-globalvars.CURR_SCREEN = LevelScreen((test_level,))
+globalvars.CURR_SCREEN = TitleScreen(())
 
+audio.playLevel()
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+
+    globalvars.MOUSE["p_left"] = globalvars.MOUSE["left"]
+    globalvars.MOUSE["p_right"] = globalvars.MOUSE["right"]
+    state = pygame.mouse.get_pressed(3)
+    globalvars.MOUSE["left"] = state[0]
+    globalvars.MOUSE["right"] = state[2]
 
     globalvars.CURR_SCREEN.render(SMALL_SCREEN)
     pygame.transform.scale(SMALL_SCREEN, SCREEN.get_size(), SCREEN)

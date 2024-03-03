@@ -23,7 +23,7 @@ class Tiles(SolidEntity):
 
         self.images = {}
         for image in images:
-            self.images[image] = pygame.image.load(os.path.join('resources', image + '.png')).convert_alpha()
+            self.images[image] = pygame.image.load(os.path.join('resources', 'tiles', image + '.png')).convert_alpha()
 
     def init(self, level):
         super().init(level)

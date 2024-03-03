@@ -26,6 +26,7 @@ def collect():
     mixer.Channel(2).play(levelComplete)
 
 def title():
+    mixer.Channel(1).stop()
     mixer.Channel(1).play(titleTheme, loops= -1)
 
 def hurt():

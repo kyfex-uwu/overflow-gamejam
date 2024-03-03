@@ -15,7 +15,7 @@ class PlayerEntity(GravityEntity):
         self.spawnpoint = (0,0)
 
         if PlayerEntity.IMAGE is None:
-            PlayerEntity.IMAGE = pygame.image.load(os.path.join('resources', 'player.png')).convert_alpha()
+            PlayerEntity.IMAGE = pygame.image.load(os.path.join('resources', 'entity', 'player.png')).convert_alpha()
 
     def init(self, level):
         super().init(level)
@@ -70,7 +70,7 @@ class PlayerEntity(GravityEntity):
         self.y = self.spawnpoint[1]
 
     def render(self, image="spikes"):
-        self.level.surface.blit(PlayerEntity.IMAGE, (self.x, self.y), self.parse)
+        self.level.surface.blit(PlayerEntity.IMAGE, (round(self.x), round(self.y)), self.parse)
 
 def init():
     level_loader.ENTITY_LOADERS['player'] = lambda strings: PlayerEntity()

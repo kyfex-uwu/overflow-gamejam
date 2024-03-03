@@ -16,7 +16,7 @@ class SpikeEntity(Entity):
             self.parse=(0,8,8,8)
 
         if SpikeEntity.IMAGE is None:
-            SpikeEntity.IMAGE = pygame.image.load(os.path.join('resources', 'spikes.png')).convert_alpha()
+            SpikeEntity.IMAGE = pygame.image.load(os.path.join('resources', 'entity', 'spikes.png')).convert_alpha()
 
     def tick(self):
         if(self.level.player_entity.colliding(self)):
