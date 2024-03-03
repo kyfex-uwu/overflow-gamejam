@@ -13,6 +13,7 @@ mixer.Channel(2)
 #music
 mainTheme = mixer.Sound(os.path.join("resources", "audio", "Platforms-in-the-Sky.ogg"))
 levelComplete = mixer.Sound(os.path.join("resources", "audio", "Level-Complete.ogg"))
+titleTheme = mixer.Sound(os.path.join("resources", "audio", "Title.ogg"))
 
 def playLevel():
     mixer.Channel(1).play(mainTheme, loops= -1)
@@ -21,3 +22,6 @@ def collect():
     mixer.Channel(1).stop()
     mixer.Channel(2).set_volume(1)
     mixer.Channel(2).play(levelComplete)
+
+def title():
+    mixer.Channel(1).play(titleTheme)

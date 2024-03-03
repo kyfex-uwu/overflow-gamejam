@@ -27,7 +27,7 @@ set_size(7)
 
 test_level = level_loader.load_level("test_level")
 
-audio.playLevel()
+audio.title()
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
