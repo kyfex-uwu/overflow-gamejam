@@ -5,6 +5,7 @@ import pygame
 from pygame import Surface
 
 import globalvars
+from screen.component.button import Button
 from screen.screen import Screen
 import audio
 
@@ -18,6 +19,12 @@ class LevelScreen(Screen):
         super().__init__(args)
         self.level = args[0]
         audio.playLevel()
+
+        def on_click():
+            if self.paused:
+                globalvars.CURR_LEVEL=-1
+                globalvars.CURR_SCREEN = globalvars.SCREEN_CONSTRS["select"](())
+        self.components.append(Button(65, 39, 40, 20, on_click))
 
         self.paused=False
         self.last_esc=False
@@ -39,6 +46,9 @@ class LevelScreen(Screen):
         self.level.render(screen)
         if self.paused:
             screen.blit(LevelScreen.PAUSE_OVERLAY, (0,0), )
+            screen.blit(globalvars.IMAGES["buttons"], (65, 39), (95,108, 40,20))
+
+        super().render(screen)
 
         color = (0, 200, 0) if self.level.finished else (100, 100, 100)
         pygame.draw.rect(screen, color, (137,0, 39, 7))
