@@ -14,7 +14,6 @@ from screen.screen import Screen
 class SelectScreen(Screen):
     def __init__(self, args: tuple):
         super().__init__(args)
-        self.wrap_amt = 0
         audio.title()
 
         self.components.append(WrapImage("levelSelect",4))
@@ -28,8 +27,9 @@ class SelectScreen(Screen):
                     
             return new
         self.buttons = []
-        self.scroll_offs=min(globalvars.LEVELS_UNLOCKED-1,14)
-        self.vis_scroll_offs=self.scroll_offs
+        self.scroll_offs=max(-2,min(14,args[1]))
+        if args[1] == 15: self.scroll_offs = -2
+        self.vis_scroll_offs=args[0]
         for i in range(15):
             button = Button(75+i*40, 50, 27, 27, on_click(i))
             self.components.append(button)

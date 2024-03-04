@@ -46,8 +46,9 @@ class DiskEntity(Entity):
             self.level.player_entity.xVel*=(1-self.collected)
 
             if self.win_effect.timer > 254:
+                scroll_from = globalvars.CURR_LEVEL-1
                 globalvars.finish_level()
-                globalvars.CURR_SCREEN=globalvars.SCREEN_CONSTRS["select"](())
+                globalvars.CURR_SCREEN=globalvars.SCREEN_CONSTRS["select"]((scroll_from,globalvars.LEVELS_UNLOCKED-1))
 
 class WinEffect(Entity):
     def __init__(self, x, y):
