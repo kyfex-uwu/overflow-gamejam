@@ -18,7 +18,7 @@ def load_level(level_name):
             images.add(data[0])
             these_tiles = [data[1][i:i + 3] for i in range(0, len(data[1]), 3)]
             for tile in these_tiles:
-                palette[tile[0]] = (int(tile[1]), int(tile[2]), data[0])
+                palette[tile[0]] = (int(tile[1], 36), int(tile[2], 36), data[0])
 
         # tiles
         width = sorted([len(line) for line in leveldata[3]], key=lambda e: e, reverse=True)[0]
