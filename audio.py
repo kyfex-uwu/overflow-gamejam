@@ -15,6 +15,7 @@ mainTheme = mixer.Sound(os.path.join("resources", "audio", "Platforms-in-the-Sky
 levelComplete = mixer.Sound(os.path.join("resources", "audio", "Level-Complete.ogg"))
 titleTheme = mixer.Sound(os.path.join("resources", "audio", "Title.ogg"))
 hit = mixer.Sound(os.path.join("resources", "audio", "Hit.ogg"))
+glitch = mixer.Sound(os.path.join("resources", "audio", "ERROR-OVERFLOW.ogg"))
 
 #variables
 check1 = False
@@ -40,3 +41,10 @@ def title():
 
 def hurt():
     mixer.Channel(2).play(hit)
+
+def glitched():
+    global check1
+    if check1:
+        check1 = False
+    mixer.Channel(1).stop()
+    mixer.Channel(1).play(glitch, loops= -1)
