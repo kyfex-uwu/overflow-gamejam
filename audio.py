@@ -16,6 +16,7 @@ levelComplete = mixer.Sound(os.path.join("resources", "audio", "Level-Complete.o
 titleTheme = mixer.Sound(os.path.join("resources", "audio", "Title.ogg"))
 hit = mixer.Sound(os.path.join("resources", "audio", "Hit.ogg"))
 glitch = mixer.Sound(os.path.join("resources", "audio", "ERROR-OVERFLOW.ogg"))
+collect2 = mixer.Sound(os.path.join("resources", "audio", "1-Complete.ogg"))
 
 #variables
 check1 = False
@@ -48,3 +49,8 @@ def glitched():
         check1 = False
     mixer.Channel(1).stop()
     mixer.Channel(1).play(glitch, loops= -1)
+
+def win():
+    mixer.Channel(1).stop()
+    mixer.Channel(2).set_volume(1)
+    mixer.Channel(2).play(collect2)
