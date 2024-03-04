@@ -1,3 +1,5 @@
+import os
+
 import pygame
 from pygame import Surface
 
@@ -30,6 +32,9 @@ for entity in {disk, player, solid, spawn, tiles, spikes, display}:
     entity.init()
 
 globalvars.CURR_SCREEN = TitleScreen(())
+globalvars.IMAGES = {
+    "buttons": pygame.image.load(os.path.join('resources', 'buttons.png')).convert_alpha(),
+}
 
 while running:
     for event in pygame.event.get():

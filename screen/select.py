@@ -8,51 +8,56 @@ import audio
 import globalvars
 import level_loader
 from screen.component.button import Button
+from screen.component.wrap_img import WrapImage
 from screen.level import LevelScreen
 from screen.screen import Screen
 
 
 class SelectScreen(Screen):
-    IMAGE = None
-    BUTTON_IMG = None
     def __init__(self, args: tuple):
         super().__init__(args)
         self.wrap_amt = 0
         audio.title()
 
+        self.components.append(WrapImage("levelSelect",4))
+
         def on_click(level):
             def new():
-                globalvars.CURR_SCREEN = LevelScreen((level_loader.load_level(level),))
+                if globalvars.LEVELS_UNLOCKED>level:
+                    print()
+                    globalvars.CURR_SCREEN = LevelScreen((level_loader.load_level("level"+str(level+1)),))
             return new
-        self.components.append(Button(10,40,27, 27, on_click("level1")))
-        self.components.append(Button(40,40,27, 27, on_click("level2")))
-        self.components.append(Button(70,40,27, 27, on_click("level3")))
-        self.components.append(Button(100,40,27, 27, on_click("level4")))
-        self.components.append(Button(10,70,27, 27, on_click("level5")))
-        self.components.append(Button(40,70,27, 27, on_click("level6")))
-        self.components.append(Button(70,70,27, 27, on_click("level7")))
-        self.components.append(Button(100,70,27, 27, on_click("level8")))
+        self.buttons = []
+        self.scroll_offs=globalvars.LEVELS_UNLOCKED-1
+        self.vis_scroll_offs=globalvars.LEVELS_UNLOCKED-1
+        for i in range(15):
+            button = Button(75+i*40, 50, 27, 27, on_click(i))
+            self.components.append(button)
+            self.buttons.append(button)
 
-        if SelectScreen.IMAGE is None:
-            SelectScreen.IMAGE = pygame.image.load(os.path.join('resources', 'levelSelect.png')).convert_alpha()
-        if SelectScreen.BUTTON_IMG is None:
-            SelectScreen.BUTTON_IMG = pygame.image.load(os.path.join('resources', 'buttons.png')).convert_alpha()
+        def scroll(amt):
+            def new(): self.scroll_offs=min(14,max(0,self.scroll_offs+amt))
+            return new
+        self.components.append(Button(10, 50, 13, 27, scroll(-1)))
+        self.components.append(Button(153, 50, 13, 27, scroll(1)))
 
     def render(self, screen: Surface):
         self.screen = screen
         screen.fill(pygame.Color(30,30,60))
         super().render(screen)
-        self.wrap_amt = (self.wrap_amt+0.015)%(math.pi*2)
-        amt = round(math.sin(self.wrap_amt)*8+4)
-        screen.blit(SelectScreen.IMAGE,(0,3), (2-amt,0,176,37))
-        screen.blit(SelectScreen.IMAGE,(amt-12,3), (167,0,5,37))
-        screen.blit(SelectScreen.IMAGE,(175+amt,3), (0,0,5,37))
 
-        self.screen.blit(SelectScreen.BUTTON_IMG, (10,40), (0, 0, 27, 27))
-        self.screen.blit(SelectScreen.BUTTON_IMG, (40,40), (27, 0, 27, 27))
-        self.screen.blit(SelectScreen.BUTTON_IMG, (70,40), (54 ,0, 27, 27))
-        self.screen.blit(SelectScreen.BUTTON_IMG, (100,40), (81, 0, 27, 27))
-        self.screen.blit(SelectScreen.BUTTON_IMG, (10,70), (108, 0, 27, 27))
-        self.screen.blit(SelectScreen.BUTTON_IMG, (40,70), (0, 27, 27, 27))
-        self.screen.blit(SelectScreen.BUTTON_IMG, (70,70), (27, 27, 27, 27))
-        self.screen.blit(SelectScreen.BUTTON_IMG, (100,70), (54, 27, 27, 27))
+        self.vis_scroll_offs=self.vis_scroll_offs*0.9+self.scroll_offs*0.1
+        for i in range(15):
+            self.buttons[i].x = 75+i*40-self.vis_scroll_offs*40
+            if abs(i-self.vis_scroll_offs)>1.3:
+                self.buttons[i].y = 100
+            else:
+                self.buttons[i].y = 50
+                self.screen.blit(globalvars.IMAGES["buttons"], (self.buttons[i].x, 50),
+                                 ((i % 5) * 27, math.floor(i / 5) * 27, 27, 27))
+                if globalvars.LEVELS_UNLOCKED<=i:
+                    self.screen.blit(globalvars.IMAGES["buttons"], (self.buttons[i].x, 50),
+                                     (81, 81, 27, 27))
+
+        self.screen.blit(globalvars.IMAGES["buttons"], (10,50), (108, 81, 13, 27))
+        self.screen.blit(globalvars.IMAGES["buttons"], (153,50), (122, 81, 13, 27))
