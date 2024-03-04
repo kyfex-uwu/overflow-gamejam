@@ -12,6 +12,28 @@ import audio
 def drawNum(num, x, y, screen): # : 10, . 11
     screen.blit(LevelScreen.NUMBERS, (x, y), (num*3, 0, 3, 5))
 
+def drawTimer(time, screen, color):
+    pygame.draw.rect(screen, color, (137, 0, 39, 7))
+
+    drawNum(time % 10, 172, 1, screen)
+    time = math.floor(time / 10)
+    drawNum(time % 10, 168, 1, screen)
+    time = math.floor(time / 10)
+    drawNum(time % 10, 164, 1, screen)
+    time = math.floor(time / 10)
+    drawNum(11, 161, 1, screen)
+    drawNum(time % 10, 158, 1, screen)
+    time = math.floor(time / 10)
+    drawNum(time % 6, 154, 1, screen)
+    time = math.floor(time / 6)
+    drawNum(10, 151, 1, screen)
+    drawNum(time % 10, 148, 1, screen)
+    time = math.floor(time / 10)
+    drawNum(time % 6, 144, 1, screen)
+    time = math.floor(time / 6)
+    drawNum(10, 141, 1, screen)
+    drawNum(time % 10, 138, 1, screen)
+
 class LevelScreen(Screen):
     NUMBERS=None
     PAUSE_OVERLAY = None
@@ -55,28 +77,7 @@ class LevelScreen(Screen):
 
         super().render(screen)
 
-        color = (0, 200, 0) if self.level.finished else (100, 100, 100)
-        pygame.draw.rect(screen, color, (137,0, 39, 7))
-
-        time = round(globalvars.TIMER * 1000)
-        drawNum(time % 10, 172, 1, screen)
-        time = math.floor(time / 10)
-        drawNum(time % 10, 168, 1, screen)
-        time = math.floor(time / 10)
-        drawNum(time % 10, 164, 1, screen)
-        time = math.floor(time / 10)
-        drawNum(11, 161, 1, screen)
-        drawNum(time % 10, 158, 1, screen)
-        time = math.floor(time / 10)
-        drawNum(time % 6, 154, 1, screen)
-        time = math.floor(time / 6)
-        drawNum(10, 151, 1, screen)
-        drawNum(time % 10, 148, 1, screen)
-        time = math.floor(time / 10)
-        drawNum(time % 6, 144, 1, screen)
-        time = math.floor(time / 6)
-        drawNum(10, 141, 1, screen)
-        drawNum(time % 10, 138, 1, screen)
+        drawTimer(round(globalvars.TIMER * 1000), screen, (0, 200, 0) if self.level.finished else (100, 100, 100))
 
         x_pos = 138
         while time > 0:

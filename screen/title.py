@@ -1,9 +1,11 @@
+import pygame
 from pygame import Surface
 
 import audio
 import globalvars
 from screen.component.button import Button
 from screen.component.wrap_img import WrapImage
+from screen.level import drawTimer
 from screen.screen import Screen
 
 
@@ -30,4 +32,7 @@ class TitleScreen(Screen):
 
         self.screen.blit(globalvars.IMAGES["buttons"], (75,50), (27,81, 27, 27))
         #self.screen.blit(globalvars.IMAGES["buttons"], (25,50), (54,81, 27, 27))
+
+        if globalvars.FINISHED is not False or True:
+            drawTimer(round(globalvars.FINISHED * 1000), self.screen, (0, 200, 0))
 
