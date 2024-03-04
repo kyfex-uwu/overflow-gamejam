@@ -24,10 +24,14 @@ class SelectScreen(Screen):
             def new():
                 globalvars.CURR_SCREEN = LevelScreen((level_loader.load_level(level),))
             return new
-        self.components.append(Button(10,40,9, 9, on_click("level1")))
-        self.components.append(Button(40,40,9, 9, on_click("k_level1")))
-        self.components.append(Button(10,70,9, 9, on_click("level3")))
-        self.components.append(Button(40,70,9, 9, on_click("level4")))
+        self.components.append(Button(10,40,27, 27, on_click("level1")))
+        self.components.append(Button(40,40,27, 27, on_click("level2")))
+        self.components.append(Button(70,40,27, 27, on_click("level3")))
+        self.components.append(Button(100,40,27, 27, on_click("level4")))
+        self.components.append(Button(10,70,27, 27, on_click("level5")))
+        self.components.append(Button(40,70,27, 27, on_click("level6")))
+        self.components.append(Button(70,70,27, 27, on_click("level7")))
+        self.components.append(Button(100,70,27, 27, on_click("level8")))
 
         if SelectScreen.IMAGE is None:
             SelectScreen.IMAGE = pygame.image.load(os.path.join('resources', 'levelSelect.png')).convert_alpha()
@@ -44,7 +48,11 @@ class SelectScreen(Screen):
         screen.blit(SelectScreen.IMAGE,(amt-12,3), (167,0,5,37))
         screen.blit(SelectScreen.IMAGE,(175+amt,3), (0,0,5,37))
 
-        self.screen.blit(SelectScreen.BUTTON_IMG, (10,40), (0, 0, 9, 9))
-        self.screen.blit(SelectScreen.BUTTON_IMG, (40,40), (9, 0, 9, 9))
-        self.screen.blit(SelectScreen.BUTTON_IMG, (10,70), (18,0, 9, 9))
-        self.screen.blit(SelectScreen.BUTTON_IMG, (40,70), (27, 0, 9, 9))
+        self.screen.blit(SelectScreen.BUTTON_IMG, (10,40), (0, 0, 27, 27))
+        self.screen.blit(SelectScreen.BUTTON_IMG, (40,40), (27, 0, 27, 27))
+        self.screen.blit(SelectScreen.BUTTON_IMG, (70,40), (54 ,0, 27, 27))
+        self.screen.blit(SelectScreen.BUTTON_IMG, (100,40), (81, 0, 27, 27))
+        self.screen.blit(SelectScreen.BUTTON_IMG, (10,70), (108, 0, 27, 27))
+        self.screen.blit(SelectScreen.BUTTON_IMG, (40,70), (0, 27, 27, 27))
+        self.screen.blit(SelectScreen.BUTTON_IMG, (70,70), (27, 27, 27, 27))
+        self.screen.blit(SelectScreen.BUTTON_IMG, (100,70), (54, 27, 27, 27))

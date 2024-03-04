@@ -1,4 +1,4 @@
 31;13
-spawn:3,1,26,20,13,8;display:67,27,arrowKeys;solid:80,-55,8,55;disk:60,51;spike:162,34,up;spike:202,34,up;spike:194,50,down;spike:42,42,left;spike:147,50,down;spike:114,74,up;spike:58,90,up;spike:66,90,up;spike:74,90,up
+spawn:3,1,26,20,13,8;display:67,27,arrowKeys;solid:80,-55,8,55;disk:60,51;spike:162,34,up;spike:202,34,up;spike:194,50,down;spike:42,42,left;spike:147,50,down;spike:114,74,up;spike:58,90,up;spike:66,90,up;spike:74,90,up;spawn:171,4,23,39,180,21;spawn:85,78,24,19,94,85;spawn:55,26,29,15,67,31
 blueTiles:C10D20E30F42J43G50H51A01B02I00
 ..........A;..........B;CDDDDE....B.............A;..........B.............B;..........B.............B;......FDDDG.......CDDDDDHDDDDDE;I...CDG...B;......B...B;..I...B...B...............CDDE;......B...B.........I...I;......B...B...CDDDE;....CDG...B;......JDDDHDDE
