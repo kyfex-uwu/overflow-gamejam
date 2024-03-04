@@ -22,9 +22,9 @@ class SelectScreen(Screen):
         def on_click(level):
             def new():
                 if globalvars.LEVELS_UNLOCKED>level:
-                    print()
                     globalvars.CURR_SCREEN = (globalvars.SCREEN_CONSTRS["level"]
                                               ((level_loader.load_level("level"+str(level+1)),)))
+                    globalvars.CURR_LEVEL=level+1
             return new
         self.buttons = []
         self.scroll_offs=min(globalvars.LEVELS_UNLOCKED-1,14)
@@ -63,4 +63,4 @@ class SelectScreen(Screen):
 
         self.screen.blit(globalvars.IMAGES["buttons"], (10,50), (108, 81, 13, 27))
         self.screen.blit(globalvars.IMAGES["buttons"], (153,50), (122, 81, 13, 27))
-        screen.blit(globalvars.IMAGES["buttons"], (5,79), (29,110, 19,15))
+        self.screen.blit(globalvars.IMAGES["buttons"], (5,79), (29,110, 19,15))

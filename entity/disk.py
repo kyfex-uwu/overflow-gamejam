@@ -31,6 +31,7 @@ class DiskEntity(Entity):
         if self.collected is False and self.level.player_entity.colliding(self):
             self.collected=0
             self.level.finished = True
+            self.level.player_entity.spawnpoint=(self.x+8,self.y+4)
             audio.collect()
             self.win_effect = WinEffect(self.x+8,self.y+4)
             self.win_effect.init(self.level)
@@ -47,7 +48,7 @@ class DiskEntity(Entity):
             self.level.player_entity.xVel*=(1-self.collected)
 
             if self.win_effect.timer > 254:
-                globalvars.LEVELS_UNLOCKED +=1
+                globalvars.finish_level()
                 globalvars.CURR_SCREEN=SelectScreen(())
 
 class WinEffect(Entity):
