@@ -2,6 +2,7 @@ import math
 import os
 
 import pygame
+from pygame import Surface
 
 import globalvars
 from screen.screen import Screen
@@ -12,16 +13,32 @@ def drawNum(num, x, y, screen): # : 10, . 11
 
 class LevelScreen(Screen):
     NUMBERS=None
+    PAUSE_OVERLAY = None
     def __init__(self, args):
         super().__init__(args)
         self.level = args[0]
         audio.playLevel()
 
+        self.paused=False
+        self.last_esc=False
+
         if LevelScreen.NUMBERS is None:
             LevelScreen.NUMBERS = pygame.image.load(os.path.join('resources', 'numbers.png'))
+        if LevelScreen.PAUSE_OVERLAY is None:
+            LevelScreen.PAUSE_OVERLAY = Surface((176,99), flags=pygame.SRCALPHA)
+            LevelScreen.PAUSE_OVERLAY.fill((0,0,0, 100))
+
     def render(self, screen):
-        self.level.tick()
+        esc_pressed = pygame.key.get_pressed()[pygame.K_ESCAPE]
+        if self.last_esc is False and esc_pressed is True:
+            self.paused = not self.paused
+        self.last_esc = esc_pressed
+
+        if not self.paused:
+            self.level.tick()
         self.level.render(screen)
+        if self.paused:
+            screen.blit(LevelScreen.PAUSE_OVERLAY, (0,0), )
 
         color = (0, 200, 0) if self.level.finished else (100, 100, 100)
         pygame.draw.rect(screen, color, (137,0, 39, 7))

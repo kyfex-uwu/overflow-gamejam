@@ -4,8 +4,6 @@ import pygame
 from pygame import Surface
 
 import globalvars
-import level_loader
-import audio
 from screen.level import LevelScreen
 from screen.title import TitleScreen
 
@@ -30,6 +28,12 @@ set_size(7)
 from entity import disk, player, solid, spawn, tiles, spikes, display
 for entity in {disk, player, solid, spawn, tiles, spikes, display}:
     entity.init()
+
+from screen import level, select, settings, title
+globalvars.SCREEN_CONSTRS["level"] = level.LevelScreen
+globalvars.SCREEN_CONSTRS["select"] = select.SelectScreen
+globalvars.SCREEN_CONSTRS["settings"] = settings.SettingsScreen
+globalvars.SCREEN_CONSTRS["title"] = title.TitleScreen
 
 globalvars.CURR_SCREEN = TitleScreen(())
 globalvars.IMAGES = {

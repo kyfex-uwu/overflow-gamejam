@@ -1,5 +1,4 @@
 import math
-import os
 
 import pygame
 from pygame import Surface
@@ -9,7 +8,6 @@ import globalvars
 import level_loader
 from screen.component.button import Button
 from screen.component.wrap_img import WrapImage
-from screen.level import LevelScreen
 from screen.screen import Screen
 
 
@@ -25,7 +23,8 @@ class SelectScreen(Screen):
             def new():
                 if globalvars.LEVELS_UNLOCKED>level:
                     print()
-                    globalvars.CURR_SCREEN = LevelScreen((level_loader.load_level("level"+str(level+1)),))
+                    globalvars.CURR_SCREEN = (globalvars.SCREEN_CONSTRS["level"]
+                                              ((level_loader.load_level("level"+str(level+1)),)))
             return new
         self.buttons = []
         self.scroll_offs=globalvars.LEVELS_UNLOCKED-1
@@ -40,6 +39,9 @@ class SelectScreen(Screen):
             return new
         self.components.append(Button(10, 50, 13, 27, scroll(-1)))
         self.components.append(Button(153, 50, 13, 27, scroll(1)))
+        def back():
+            globalvars.CURR_SCREEN = globalvars.SCREEN_CONSTRS["title"](())
+        self.components.append(Button(5,79,19,15, back))
 
     def render(self, screen: Surface):
         self.screen = screen
@@ -61,3 +63,4 @@ class SelectScreen(Screen):
 
         self.screen.blit(globalvars.IMAGES["buttons"], (10,50), (108, 81, 13, 27))
         self.screen.blit(globalvars.IMAGES["buttons"], (153,50), (122, 81, 13, 27))
+        screen.blit(globalvars.IMAGES["buttons"], (5,79), (29,110, 19,15))

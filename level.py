@@ -24,9 +24,14 @@ class Level:
         self.player_entity = None
 
         self.finished = False
+        self.started = False
 
     def render(self, dest: Surface):
-        self.surface.fill((0,0,0))
+        if not self.started:
+            self.surface.fill((0,0,0))
+            self.started = True
+        else:
+            self.surface.fill((0,0,0,70))
         self.x = max(0, min(self.w * 8 - self.screenSize.x, self.x + self.xVel))
         self.y = max(0, min(self.h * 8 - self.screenSize.y, self.y))
 
