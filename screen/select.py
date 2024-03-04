@@ -30,7 +30,7 @@ class SelectScreen(Screen):
         self.buttons = []
         self.scroll_offs=min(globalvars.LEVELS_UNLOCKED-1,14)
         self.vis_scroll_offs=self.scroll_offs
-        for i in range(16):
+        for i in range(15):
             button = Button(75+i*40, 50, 27, 27, on_click(i))
             self.components.append(button)
             self.buttons.append(button)
@@ -39,7 +39,7 @@ class SelectScreen(Screen):
         self.buttons.append(button_m1)
 
         def scroll(amt):
-            def new(): self.scroll_offs=min(13,max(0 if globalvars.LEVELS_UNLOCKED<15 else -2,self.scroll_offs+amt))
+            def new(): self.scroll_offs=min(14,max(0 if globalvars.LEVELS_UNLOCKED<15 else -2,self.scroll_offs+amt))
             return new
         self.components.append(Button(10, 50, 13, 27, scroll(-1)))
         self.components.append(Button(153, 50, 13, 27, scroll(1)))
@@ -53,7 +53,7 @@ class SelectScreen(Screen):
         super().render(screen)
 
         self.vis_scroll_offs=self.vis_scroll_offs*0.9+self.scroll_offs*0.1
-        for i in range(14):
+        for i in range(15):
             self.buttons[i].x = 75+i*40-self.vis_scroll_offs*40
             if abs(i-self.vis_scroll_offs)>1.3:
                 self.buttons[i].y = 100
@@ -76,6 +76,6 @@ class SelectScreen(Screen):
 
         if self.vis_scroll_offs>=0.5 - (2 if globalvars.LEVELS_UNLOCKED>15 else 0):
             self.screen.blit(globalvars.IMAGES["buttons"], (10,50), (108, 81, 13, 27))
-        if self.vis_scroll_offs<=12.5:
+        if self.vis_scroll_offs<=13.5:
             self.screen.blit(globalvars.IMAGES["buttons"], (153,50), (122, 81, 13, 27))
         self.screen.blit(globalvars.IMAGES["buttons"], (5,79), (29,110, 19,15))
