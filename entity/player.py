@@ -50,6 +50,8 @@ class PlayerEntity(GravityEntity):
             self.xVel = min(self.xVel + X_ACCEL, MAX_XVEL)
         if not keys[pygame.K_a] and not keys[pygame.K_d]:
             self.xVel *= 0.7
+        if keys[pygame.K_r]:
+            self.kill()
 
         if not self.level.finished:
             if self.x+self.w < self.level.x:
