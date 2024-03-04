@@ -18,7 +18,11 @@ class LevelScreen(Screen):
     def __init__(self, args):
         super().__init__(args)
         self.level = args[0]
-        audio.playLevel()
+        
+        if globalvars.CURR_LEVEL <= 15:
+            audio.playLevel()
+        else:
+            audio.glitched()     
 
         def on_click():
             if self.paused:
