@@ -16,7 +16,8 @@ class TitleScreen(Screen):
         self.components.append(WrapImage("title",2))
 
         def on_click():
-            globalvars.CURR_SCREEN = globalvars.SCREEN_CONSTRS["select"](())
+            globalvars.CURR_SCREEN = globalvars.SCREEN_CONSTRS["select"](
+                (globalvars.LEVELS_UNLOCKED-1,globalvars.LEVELS_UNLOCKED-1))
         self.components.append(Button(75,50,27,27, on_click))
         def on_click2():
             globalvars.CURR_SCREEN = globalvars.SCREEN_CONSTRS["settings"](())

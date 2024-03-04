@@ -26,8 +26,9 @@ class LevelScreen(Screen):
 
         def on_click():
             if self.paused:
+                globalvars.CURR_SCREEN = globalvars.SCREEN_CONSTRS["select"](
+                    (globalvars.CURR_LEVEL-1,globalvars.CURR_LEVEL-1))
                 globalvars.CURR_LEVEL=-1
-                globalvars.CURR_SCREEN = globalvars.SCREEN_CONSTRS["select"](())
         self.components.append(Button(65, 39, 40, 20, on_click))
 
         self.paused=False
