@@ -34,6 +34,14 @@ def drawTimer(time, screen, color):
     drawNum(10, 141, 1, screen)
     drawNum(time % 10, 138, 1, screen)
 
+    x_pos = 138
+    while time > 0:
+        time = math.floor(time / 10)
+        if time < 1: break
+        x_pos -= 4
+        pygame.draw.rect(screen, color, (x_pos - 1, 0, 4, 7))
+        drawNum(time % 10, x_pos, 1, screen)
+
 class LevelScreen(Screen):
     NUMBERS=None
     PAUSE_OVERLAY = None
@@ -77,12 +85,6 @@ class LevelScreen(Screen):
 
         super().render(screen)
 
-        drawTimer(round(globalvars.TIMER * 1000), screen, (0, 200, 0) if self.level.finished else (100, 100, 100))
-
-        x_pos = 138
-        while time > 0:
-            time = math.floor(time / 10)
-            if time < 1: break
-            x_pos -= 4
-            pygame.draw.rect(screen, color, (x_pos-1, 0, 4, 7))
-            drawNum(time % 10, x_pos, 1, screen)
+        time=round(globalvars.TIMER * 1000)
+        color=(0, 200, 0) if self.level.finished else (100, 100, 100)
+        drawTimer(time, screen, color)

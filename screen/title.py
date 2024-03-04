@@ -33,6 +33,6 @@ class TitleScreen(Screen):
         self.screen.blit(globalvars.IMAGES["buttons"], (75,50), (27,81, 27, 27))
         #self.screen.blit(globalvars.IMAGES["buttons"], (25,50), (54,81, 27, 27))
 
-        if globalvars.FINISHED is not False or True:
+        if globalvars.FINISHED is not False:
             drawTimer(round(globalvars.FINISHED * 1000), self.screen, (0, 200, 0))
 

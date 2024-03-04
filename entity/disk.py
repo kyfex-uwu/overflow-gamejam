@@ -30,7 +30,7 @@ class DiskEntity(Entity):
             self.collected=0
             self.level.finished = True
             self.level.player_entity.spawnpoint=(self.x+8,self.y+4)
-            if(globalvars.CURR_LEVEL == 16):
+            if globalvars.CURR_LEVEL == 16:
                 audio.win()
             else: 
                 audio.collect()
