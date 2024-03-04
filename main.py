@@ -9,6 +9,7 @@ from screen.title import TitleScreen
 
 # pygame setup
 pygame.init()
+pygame.display.set_caption('wraparound')
 SCREEN = None
 SMALL_SCREEN = Surface((11*16, 11*9))
 LEVELS_UNLOCKED = 1
