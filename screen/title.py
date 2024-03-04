@@ -21,7 +21,7 @@ class TitleScreen(Screen):
         self.components.append(Button(75,50,27,27, on_click))
         def on_click2():
             globalvars.CURR_SCREEN = globalvars.SCREEN_CONSTRS["settings"](())
-        self.components.append(Button(25,50,27,27, on_click2))
+        #self.components.append(Button(25,50,27,27, on_click2))
 
     def render(self, screen: Surface):
         self.screen = screen
@@ -29,5 +29,5 @@ class TitleScreen(Screen):
         super().render(screen)
 
         self.screen.blit(globalvars.IMAGES["buttons"], (75,50), (27,81, 27, 27))
-        self.screen.blit(globalvars.IMAGES["buttons"], (25,50), (54,81, 27, 27))
+        #self.screen.blit(globalvars.IMAGES["buttons"], (25,50), (54,81, 27, 27))
 
