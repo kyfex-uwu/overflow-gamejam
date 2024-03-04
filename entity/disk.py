@@ -30,7 +30,10 @@ class DiskEntity(Entity):
             self.collected=0
             self.level.finished = True
             self.level.player_entity.spawnpoint=(self.x+8,self.y+4)
-            audio.collect()
+            if(globalvars.CURR_LEVEL == 16):
+                audio.win()
+            else: 
+                audio.collect()
             self.win_effect = WinEffect(self.x+8,self.y+4)
             self.win_effect.init(self.level)
         if self.collected is not False:
