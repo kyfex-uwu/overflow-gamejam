@@ -51,10 +51,11 @@ class PlayerEntity(GravityEntity):
         if not keys[pygame.K_a] and not keys[pygame.K_d]:
             self.xVel *= 0.7
 
-        if self.x+self.w < self.level.x:
-            self.x += self.level.screenSize.x+self.w-1
-        elif self.x > self.level.x+self.level.screenSize.x:
-            self.x -= self.level.screenSize.x+self.w-1
+        if not self.level.finished:
+            if self.x+self.w < self.level.x:
+                self.x += self.level.screenSize.x+self.w-1
+            elif self.x > self.level.x+self.level.screenSize.x:
+                self.x -= self.level.screenSize.x+self.w-1
         if self.y+self.h > self.level.y + self.level.h*8:
             self.kill()
 

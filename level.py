@@ -26,9 +26,9 @@ class Level:
         self.finished = False
 
     def render(self, dest: Surface):
+        self.surface.fill((0,0,0))
         self.x = max(0, min(self.w * 8 - self.screenSize.x, self.x + self.xVel))
         self.y = max(0, min(self.h * 8 - self.screenSize.y, self.y))
-        self.surface.fill((30,30,60))
 
         for entity in self.entities:
             entity.render()

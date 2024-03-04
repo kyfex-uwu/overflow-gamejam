@@ -63,7 +63,6 @@ class WinEffect(Entity):
         to_color = 255-math.pow(self.timer/15-16, 2)
         self.surface.fill((to_color,to_color,to_color))
         self.level.surface.blit(self.surface, (self.level.x,self.level.y), special_flags=pygame.BLEND_ADD)
-            
 
 
 def init():

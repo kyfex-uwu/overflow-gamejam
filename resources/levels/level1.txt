@@ -1,4 +1,4 @@
 26;13
-spawn:1,1,13,19,5,8;spike:66,74,right;spawn:1,1,13,19,5,8;disk:101,2;spike:66,74,right;spike:98,90,up;spawn:29,58,34,20,43,65;solid:80,-45,8,45;spike:130,66,down;spike:106,90,up;display:47,5,wasd
-blueTiles:J10B11F12S13K20C21H22G23L30D31I32T33R43N51P52M53Q71A01E02O00
+spawn:1,1,13,19,5,8;spike:66,74,right;spawn:1,1,13,19,5,8;disk:101,2;spike:66,74,right;spike:98,90,up;spawn:29,58,34,20,43,65;solid:80,-45,8,45;spike:130,66,down;spike:106,90,up;display:47,5,wasd;solid:120,-46,8,46
+chip:J10B11F12S13K20C21H22G23L30D31I32T33R43N51P52M53Q71A01E02O00
 ..........A....A.....BCCCD;..........E....E.....FGHGI;JKKKL.....E..JKM.....F.H.I;..........E..........FCHCI;..........E..........F.H.I;....JKKKKKNKKKL......F...I;.....................FCCCI;................O....FHHHI;.....................FHHHI;JKKKKKKP............JQHHHI;.......E.............FHHHI;.......E..........A..FHHHI;.......RKKKKKKKKKKM..SGGGT
