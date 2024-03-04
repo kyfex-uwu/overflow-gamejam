@@ -1,7 +1,3 @@
-import math
-import os
-
-import pygame
 from pygame import Surface
 
 import audio
@@ -9,8 +5,6 @@ import globalvars
 from screen.component.button import Button
 from screen.component.wrap_img import WrapImage
 from screen.screen import Screen
-from screen.select import SelectScreen
-from screen.settings import SettingsScreen
 
 
 class TitleScreen(Screen):
@@ -22,11 +16,11 @@ class TitleScreen(Screen):
         self.components.append(WrapImage("title",2))
 
         def on_click():
-            globalvars.CURR_SCREEN = SelectScreen(())
+            globalvars.CURR_SCREEN = globalvars.SCREEN_CONSTRS["select"](())
         self.components.append(Button(75,50,27,27, on_click))
         def on_click2():
-            globalvars.CURR_SCREEN = SettingsScreen(())
-        #self.components.append(Button(25,50,27,27, on_click2))
+            globalvars.CURR_SCREEN = globalvars.SCREEN_CONSTRS["settings"](())
+        self.components.append(Button(25,50,27,27, on_click2))
 
     def render(self, screen: Surface):
         self.screen = screen
@@ -34,5 +28,5 @@ class TitleScreen(Screen):
         super().render(screen)
 
         self.screen.blit(globalvars.IMAGES["buttons"], (75,50), (27,81, 27, 27))
-        #self.screen.blit(globalvars.IMAGES["buttons"], (25,50), (54,81, 27, 27))
+        self.screen.blit(globalvars.IMAGES["buttons"], (25,50), (54,81, 27, 27))
 

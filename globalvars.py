@@ -13,3 +13,4 @@ MOUSE = {
 TIMER = 0
 
 IMAGES = {}
+SCREEN_CONSTRS={}
