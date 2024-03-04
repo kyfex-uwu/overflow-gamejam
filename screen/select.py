@@ -27,8 +27,8 @@ class SelectScreen(Screen):
                                               ((level_loader.load_level("level"+str(level+1)),)))
             return new
         self.buttons = []
-        self.scroll_offs=globalvars.LEVELS_UNLOCKED-1
-        self.vis_scroll_offs=globalvars.LEVELS_UNLOCKED-1
+        self.scroll_offs=min(globalvars.LEVELS_UNLOCKED-1,14)
+        self.vis_scroll_offs=self.scroll_offs
         for i in range(15):
             button = Button(75+i*40, 50, 27, 27, on_click(i))
             self.components.append(button)
