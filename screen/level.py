@@ -18,8 +18,7 @@ class LevelScreen(Screen):
     def __init__(self, args):
         super().__init__(args)
         self.level = args[0]
-
-        print(globalvars.CURR_LEVEL)
+        
         if globalvars.CURR_LEVEL <= 15:
             audio.playLevel()
         else:
