@@ -54,3 +54,12 @@ def win():
     mixer.Channel(1).stop()
     mixer.Channel(2).set_volume(1)
     mixer.Channel(2).play(collect2)
+
+def music_vol(vol):
+    if vol is not None:
+        mixer.Channel(1).set_volume(vol)
+    return mixer.Channel(1).get_volume()
+def sfx_vol(vol):
+    if vol is not None:
+        mixer.Channel(2).set_volume(vol)
+    return mixer.Channel(2).get_volume()

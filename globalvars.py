@@ -1,4 +1,13 @@
+import pygame
+
 CURR_SCREEN = None
+SCREEN = None
+
+def set_size(size):
+    global PIXEL_WIDTH
+    global SCREEN
+    PIXEL_WIDTH = size
+    SCREEN = pygame.display.set_mode((PIXEL_WIDTH * 11 * 16, PIXEL_WIDTH * 11 * 9))
 
 LEVELS_UNLOCKED = 1
 CURR_LEVEL = -1

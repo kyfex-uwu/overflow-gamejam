@@ -4,7 +4,7 @@ import os
 import level_loader
 from entity.gravity import GravityEntity
 import audio
-
+from entity.solid import SolidEntity
 
 MAX_XVEL=1.7
 X_ACCEL=0.4
@@ -16,12 +16,15 @@ class PlayerEntity(GravityEntity):
         self.z=10
         self.is_jumping=0
         self.spawnpoint = (0,0)
+        self.coll_checker = SolidEntity(0,0,6,6)
+        self.coll_checker.solid=False
 
         if PlayerEntity.IMAGE is None:
             PlayerEntity.IMAGE = pygame.image.load(os.path.join('resources', 'entity', 'player.png')).convert_alpha()
 
     def init(self, level):
         super().init(level)
+        self.coll_checker.init(level)
         level.player_entity = self
         if level.default_spawn is not None:
             self.spawnpoint = level.default_spawn
@@ -83,8 +86,9 @@ class PlayerEntity(GravityEntity):
         self.level.x = self.x+self.w/2-self.level.screenSize.x/2
         self.level.y = self.level.player_entity.y - self.level.screenSize.y / 5 * 3
 
-    def render(self, image="spikes"):
+    def render(self):
         self.level.surface.blit(PlayerEntity.IMAGE, (round(self.x), round(self.y)), self.parse)
+        self.level.surface.blit(PlayerEntity.IMAGE, (round(self.coll_checker.x), round(self.coll_checker.y)), self.parse)
 
 def init():
     level_loader.ENTITY_LOADERS['player'] = lambda strings: PlayerEntity()

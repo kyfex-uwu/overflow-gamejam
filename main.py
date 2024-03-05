@@ -10,21 +10,14 @@ from screen.title import TitleScreen
 # pygame setup
 pygame.init()
 pygame.display.set_caption('wraparound')
-SCREEN = None
 SMALL_SCREEN = Surface((11*16, 11*9))
 LEVELS_UNLOCKED = 1
 clock = pygame.time.Clock()
 running = True
 dt = 0
 
-
-def set_size(size):
-    global SCREEN
-    globalvars.PIXEL_WIDTH = size
-    SCREEN = pygame.display.set_mode((globalvars.PIXEL_WIDTH * 11 * 16, globalvars.PIXEL_WIDTH * 11 * 9))
-
 #window size
-set_size(7)
+globalvars.set_size(7)
 
 from entity import disk, player, solid, spawn, tiles, spikes, display
 for entity in {disk, player, solid, spawn, tiles, spikes, display}:
@@ -60,7 +53,7 @@ while running:
         globalvars.TIMER = 999999
 
     globalvars.CURR_SCREEN.render(SMALL_SCREEN)
-    pygame.transform.scale(SMALL_SCREEN, SCREEN.get_size(), SCREEN)
+    pygame.transform.scale(SMALL_SCREEN, globalvars.SCREEN.get_size(), globalvars.SCREEN)
 
     pygame.display.flip()
     dt = clock.tick(60) / 1000
