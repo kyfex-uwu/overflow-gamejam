@@ -78,4 +78,4 @@ class SelectScreen(Screen):
             self.screen.blit(globalvars.IMAGES["buttons"], (10,50), (108, 81, 13, 27))
         if self.vis_scroll_offs<=13.5:
             self.screen.blit(globalvars.IMAGES["buttons"], (153,50), (122, 81, 13, 27))
-        self.screen.blit(globalvars.IMAGES["buttons"], (5,79), (29,110, 19,15))
+        self.screen.blit(globalvars.IMAGES["buttons"], (5,79), (26, 108, 19,15))

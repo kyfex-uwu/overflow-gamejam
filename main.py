@@ -23,11 +23,12 @@ from entity import disk, player, solid, spawn, tiles, spikes, display
 for entity in {disk, player, solid, spawn, tiles, spikes, display}:
     entity.init()
 
-from screen import level, select, settings, title
+from screen import level, select, settings, title, credits
 globalvars.SCREEN_CONSTRS["level"] = level.LevelScreen
 globalvars.SCREEN_CONSTRS["select"] = select.SelectScreen
 globalvars.SCREEN_CONSTRS["settings"] = settings.SettingsScreen
 globalvars.SCREEN_CONSTRS["title"] = title.TitleScreen
+globalvars.SCREEN_CONSTRS["credits"] = credits.CreditsScreen
 
 globalvars.CURR_SCREEN = TitleScreen(())
 globalvars.IMAGES = {

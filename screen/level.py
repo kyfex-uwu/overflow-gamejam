@@ -72,7 +72,7 @@ class LevelScreen(Screen):
 
     def render(self, screen):
         esc_pressed = pygame.key.get_pressed()[pygame.K_ESCAPE]
-        if self.last_esc is False and esc_pressed is True:
+        if self.last_esc is False and esc_pressed is True and not self.level.finished:
             self.paused = not self.paused
         self.last_esc = esc_pressed
 

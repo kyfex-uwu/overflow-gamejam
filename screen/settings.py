@@ -47,25 +47,30 @@ class SettingsScreen(Screen):
 
         def screen_size():
             globalvars.set_size(round(max(0,min(8,((pygame.mouse.get_pos()[0]/globalvars.PIXEL_WIDTH-50)/75*8))))+1)
-        self.size_slider = Button(50, 70, 75, 9, screen_size)
+        self.size_slider = Button(50, 64, 75, 9, screen_size)
         self.components.append(self.size_slider)
+
+        def credits():
+            globalvars.CURR_SCREEN=globalvars.SCREEN_CONSTRS["credits"](())
+        self.components.append(Button(123, 78, 50, 18, credits))
 
     def render(self, screen):
         screen.fill((30, 30, 60))
 
         super().render(screen)
-        screen.blit(globalvars.IMAGES["buttons"], (5, 79), (29, 110, 19, 15))
+        screen.blit(globalvars.IMAGES["buttons"], (5, 79), (26, 108, 19, 15))
+        screen.blit(globalvars.IMAGES["buttons"], (123, 78), (45, 108, 50, 18))
 
         screen.blit(globalvars.IMAGES["buttons"], (35, 50), (0, 117, 13, 9))
-        screen.blit(globalvars.IMAGES["buttons"], (35, 70), (13, 117, 13, 9))
+        screen.blit(globalvars.IMAGES["buttons"], (35, 65), (13, 117, 13, 9))
 
         screen.blit(globalvars.IMAGES["buttons"], (52, 52), (9, 110, 3, 5))
         screen.blit(globalvars.IMAGES["buttons"], (121, 52), (13, 110, 3, 5))
-        screen.blit(globalvars.IMAGES["buttons"], (52, 72), (9, 110, 3, 5))
-        screen.blit(globalvars.IMAGES["buttons"], (121, 72), (13, 110, 3, 5))
+        screen.blit(globalvars.IMAGES["buttons"], (52, 67), (9, 110, 3, 5))
+        screen.blit(globalvars.IMAGES["buttons"], (121, 67), (13, 110, 3, 5))
         for i in range(55, 121):
             screen.blit(globalvars.IMAGES["buttons"], (i, 52), (12, 110, 1, 5))
-            screen.blit(globalvars.IMAGES["buttons"], (i, 72), (12, 110, 1, 5))
+            screen.blit(globalvars.IMAGES["buttons"], (i, 67), (12, 110, 1, 5))
 
         screen.blit(globalvars.IMAGES["buttons"], (self.vol_slider.x, 50), (0, 108, 9, 9))
-        screen.blit(globalvars.IMAGES["buttons"], (50+(globalvars.PIXEL_WIDTH-1)*66/8, 70), (0, 108, 9, 9))
+        screen.blit(globalvars.IMAGES["buttons"], (50+(globalvars.PIXEL_WIDTH-1)*66/8, 65), (0, 108, 9, 9))
