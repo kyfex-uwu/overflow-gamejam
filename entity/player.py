@@ -84,9 +84,7 @@ class PlayerEntity(GravityEntity):
 
     def render(self):
         self.level.surface.blit(PlayerEntity.IMAGE, (round(self.x), round(self.y)), self.parse)
-        # do i need a better solution? without this the player can be completely off-screen and not showing
         self.level.surface.blit(PlayerEntity.IMAGE, (round(self.x-self.level.screenSize.x), round(self.y)), self.parse)
-        self.level.surface.blit(PlayerEntity.IMAGE, (round(self.x+self.level.screenSize.x), round(self.y)), self.parse)
 
 def init():
     level_loader.ENTITY_LOADERS['player'] = lambda strings: PlayerEntity()

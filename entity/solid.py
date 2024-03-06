@@ -59,20 +59,22 @@ class SolidEntity(Entity):
         self.can_wrap=False
 
     def tick(self):
-        wrap_data = []
+        with_wrap = False
         if self.can_wrap:
-            if self.x+self.xVel < self.level.x:
-                wrap_amt = self.level.x-self.x
-                wrap_data.append((self.level.x, self.y, self.w-wrap_amt, self.h))
-                wrap_data.append((self.level.x+self.level.w-wrap_amt, self.y, wrap_amt, self.h))
-            elif self.x+self.w+self.xVel > self.level.x+self.level.w:
-                wrap_amt = self.x-self.level.x
-                wrap_data.append((self.x, self.y, self.w-wrap_amt, self.h))
-                wrap_data.append((self.level.x, self.y, wrap_amt, self.h))
-            pass
-        else:
-            wrap_data.append((self.x, self.y, self.w, self.h))
-        self.move(wrap_data)
+            if self.x+self.xVel<self.level.x:
+                with_wrap=True
+                self.move([
+                    (self.level.x, self.level.x+self.w, self.level.x),
+                    (self.x+self.level.screenSize.x+self.xVel,
+                        self.level.x+self.level.screenSize.x, self.x+self.xVel)])
+            elif self.x+self.w+self.xVel>self.level.x+self.level.screenSize.x:
+                with_wrap=True
+                self.move([
+                    (self.x, self.level.x+self.level.screenSize.x, self.x),
+                    (self.level.x, self.level.x*2-self.level.screenSize.x+self.x+self.w+self.xVel,
+                        self.level.x+self.level.screenSize.x)])
+        if not with_wrap:
+            self.move([(self.x+min(0, self.xVel), self.x+self.w+max(0,self.xVel), self.x+min(0, self.xVel))])
 
         self.xVel *= 0.95
         self.yVel *= 0.98
@@ -80,7 +82,19 @@ class SolidEntity(Entity):
         if abs(self.xVel) <= 0.002: self.xVel = 0
         if abs(self.yVel) <= 0.002: self.yVel = 0
 
-    def move(self, wrap_data):
+    def move(self, slices):
+        # slices:[
+        #     (x1,x2,pos)
+        # ]
+        collidables = []
+        for slice in slices:
+            for entity in self.level.entities:
+                if entity is self or not entity.solid: continue
+                if slice[0]-entity.w <= entity.x <= slice[1]:
+                    x=max(entity.x,slice[0])
+                    x2=min(entity.x+entity.w,slice[1])
+                    collidables.append(Rect(x+(slice[2]-slice[0]),entity.y,x2-x,entity.h))
+
         self.normal = Vector(0, 0)
         remainingXVel = self.xVel
         remainingYVel = self.yVel
@@ -96,9 +110,7 @@ class SolidEntity(Entity):
                 "distance": 1
             }
 
-            for other in self.level.entities:
-                if other is self or other.solid is not True: continue
-
+            for other in collidables:
                 contact = False
                 if remainingYVel == 0 or remainingXVel == 0:
                     if (other.x - self.w - abs(remainingXVel) <= min(self.x,
