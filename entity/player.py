@@ -14,17 +14,16 @@ class PlayerEntity(GravityEntity):
     def __init__(self):
         super().__init__(0,0, 6, 6)
         self.z=10
+        self.can_wrap=True
         self.is_jumping=0
         self.spawnpoint = (0,0)
-        self.coll_checker = SolidEntity(0,0,6,6)
-        self.coll_checker.solid=False
+        self.parse = (12,0,6,6)
 
         if PlayerEntity.IMAGE is None:
             PlayerEntity.IMAGE = pygame.image.load(os.path.join('resources', 'entity', 'player.png')).convert_alpha()
 
     def init(self, level):
         super().init(level)
-        self.coll_checker.init(level)
         level.player_entity = self
         if level.default_spawn is not None:
             self.spawnpoint = level.default_spawn
@@ -47,10 +46,13 @@ class PlayerEntity(GravityEntity):
         if self.normal.y==1:
             self.is_jumping=-1
 
+        self.parse=(12,0,6,6)
         if keys[pygame.K_a]:
             self.xVel = max(self.xVel - X_ACCEL, -MAX_XVEL)
+            self.parse = (6, 0, 6, 6)
         if keys[pygame.K_d]:
             self.xVel = min(self.xVel + X_ACCEL, MAX_XVEL)
+            self.parse = (0, 0, 6, 6)
         if not keys[pygame.K_a] and not keys[pygame.K_d]:
             self.xVel *= 0.7
         if keys[pygame.K_r]:
@@ -58,21 +60,15 @@ class PlayerEntity(GravityEntity):
 
         if not self.level.finished:
             if self.x+self.w < self.level.x:
-                self.x += self.level.screenSize.x+self.w-1
+                self.x += self.level.screenSize.x
             elif self.x > self.level.x+self.level.screenSize.x:
-                self.x -= self.level.screenSize.x+self.w-1
+                self.x -= self.level.screenSize.x
         if self.y+self.h > self.level.y + self.level.h*8:
             self.kill()
 
         super().tick()
 
-        self.parse=(12,0,6,6)
-        
-        if self.xVel >= 0.9:
-            self.parse=(0,0,6,6)
-        elif self.xVel <= -0.9:
-            self.parse=(6,0,6,6)
-        elif self.yVel < 0:
+        if self.yVel < 0:
             self.parse=(6,6,6,6)
         elif self.yVel > 0:
             self.parse=(0,6,6,6)
@@ -88,7 +84,9 @@ class PlayerEntity(GravityEntity):
 
     def render(self):
         self.level.surface.blit(PlayerEntity.IMAGE, (round(self.x), round(self.y)), self.parse)
-        #self.level.surface.blit(PlayerEntity.IMAGE, (round(self.coll_checker.x), round(self.coll_checker.y)), self.parse)
+        # do i need a better solution? without this the player can be completely off-screen and not showing
+        self.level.surface.blit(PlayerEntity.IMAGE, (round(self.x-self.level.screenSize.x), round(self.y)), self.parse)
+        self.level.surface.blit(PlayerEntity.IMAGE, (round(self.x+self.level.screenSize.x), round(self.y)), self.parse)
 
 def init():
     level_loader.ENTITY_LOADERS['player'] = lambda strings: PlayerEntity()

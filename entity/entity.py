@@ -29,6 +29,10 @@ class Entity:
     def tick(self):
         pass
 
+    def remove(self):
+        if self in self.level.entities:
+            self.level.entities.remove(self)
+
 class Vector:
     def __init__(self, x, y):
         self.x=x

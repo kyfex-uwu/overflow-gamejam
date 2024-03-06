@@ -49,7 +49,7 @@ while running:
     if isinstance(globalvars.CURR_SCREEN, LevelScreen) and not globalvars.CURR_SCREEN.level.finished:
         globalvars.TIMER+=dt
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_o] and False:
+    if keys[pygame.K_o]:
         globalvars.LEVELS_UNLOCKED = 16
         globalvars.TIMER = 999999
 

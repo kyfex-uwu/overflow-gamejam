@@ -56,9 +56,23 @@ class SolidEntity(Entity):
         super().__init__(x, y, w, h)
         self.normal = Vector(0, 0)
         self.solid = True
+        self.can_wrap=False
 
     def tick(self):
-        self.move()
+        wrap_data = []
+        if self.can_wrap:
+            if self.x+self.xVel < self.level.x:
+                wrap_amt = self.level.x-self.x
+                wrap_data.append((self.level.x, self.y, self.w-wrap_amt, self.h))
+                wrap_data.append((self.level.x+self.level.w-wrap_amt, self.y, wrap_amt, self.h))
+            elif self.x+self.w+self.xVel > self.level.x+self.level.w:
+                wrap_amt = self.x-self.level.x
+                wrap_data.append((self.x, self.y, self.w-wrap_amt, self.h))
+                wrap_data.append((self.level.x, self.y, wrap_amt, self.h))
+            pass
+        else:
+            wrap_data.append((self.x, self.y, self.w, self.h))
+        self.move(wrap_data)
 
         self.xVel *= 0.95
         self.yVel *= 0.98
@@ -66,7 +80,7 @@ class SolidEntity(Entity):
         if abs(self.xVel) <= 0.002: self.xVel = 0
         if abs(self.yVel) <= 0.002: self.yVel = 0
 
-    def move(self):
+    def move(self, wrap_data):
         self.normal = Vector(0, 0)
         remainingXVel = self.xVel
         remainingYVel = self.yVel
