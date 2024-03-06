@@ -27,13 +27,11 @@ class Level:
 
     def render(self, dest: Surface):
         self.surface.fill((0,0,0))
-        self.x = max(0, min(self.w * 8 - self.screenSize.x, self.x))
-        self.y = max(0, min(self.h * 8 - self.screenSize.y, self.y))
 
         for entity in self.entities:
             entity.render()
 
-        dest.blit(self.surface, (-self.x, -self.y,self.screenSize.x,self.screenSize.y))
+        dest.blit(self.surface, (round(-self.x), round(-self.y),self.screenSize.x,self.screenSize.y))
 
     def tick(self):
         keys = pygame.key.get_pressed()
@@ -42,12 +40,13 @@ class Level:
         if keys[pygame.K_LEFT]:
             self.xVel = max(self.xVel - 0.4, -2)
         self.x+=self.xVel
-        self.x = max(0, min(self.w * 8 - self.screenSize.x, self.x))
-        self.y = max(0, min(self.h * 8 - self.screenSize.y, self.y))
         self.xVel *= 0.8
 
         if self.player_entity is not None:
             self.y = self.y * 0.9 + (self.player_entity.y - self.screenSize.y / 5 * 3) * 0.1
+
+        self.x = max(0, min(self.w * 8 - self.screenSize.x, self.x))
+        self.y = max(0, min(self.h * 8 - self.screenSize.y, self.y))
 
         self.entities.sort(key=lambda e: e.z)
         for entity in self.entities:
