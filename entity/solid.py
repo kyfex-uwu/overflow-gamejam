@@ -63,11 +63,13 @@ class SolidEntity(Entity):
         if self.can_wrap:
             if self.x+self.xVel<self.level.x:
                 with_wrap=True
+                if self.xVel==0: self.xVel=self.x-self.level.x
                 self.move([
                     (self.level.x, self.level.x+self.w, self.level.x),
                     (self.x+self.level.screenSize.x+self.xVel,
                         self.level.x+self.level.screenSize.x, self.x+self.xVel)])
             elif self.x+self.w+self.xVel>self.level.x+self.level.screenSize.x:
+                if self.xVel==0: self.xVel=self.x+self.w-(self.level.x+self.level.screenSize.x)
                 with_wrap=True
                 self.move([
                     (self.x, self.level.x+self.level.screenSize.x, self.x),
