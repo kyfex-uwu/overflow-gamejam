@@ -40,7 +40,8 @@ class Level:
         if keys[pygame.K_LEFT]:
             self.xVel = max(self.xVel - 0.4, -2)
         self.x+=self.xVel
-        self.xVel *= 0.8
+        self.xVel = round(self.xVel*0.8*1000)/1000
+        if abs(self.xVel) <= 0.002: self.xVel=0
 
         if self.player_entity is not None:
             self.y = self.y * 0.9 + (self.player_entity.y - self.screenSize.y / 5 * 3) * 0.1
