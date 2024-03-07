@@ -41,7 +41,9 @@ class SettingsScreen(Screen):
         self.components.append(Button(5, 79, 19, 15, back))
 
         def slider():
-            audio.music_vol(max(0, min(1, (self.vol_slider.x - 50) / 67)))
+            val = max(0, min(1, (self.vol_slider.x - 50) / 67))
+            audio.music_vol(val)
+            globalvars.CONFIG["volume"] = val
         self.vol_slider = Slider(50 + audio.music_vol(None) * 66, 50, 9, 9, 50, 117, slider)
         self.components.append(self.vol_slider)
 

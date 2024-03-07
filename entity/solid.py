@@ -63,13 +63,11 @@ class SolidEntity(Entity):
         if self.can_wrap:
             if self.x+self.xVel<self.level.x:
                 with_wrap=True
-                if self.xVel==0: self.xVel=self.x-self.level.x
                 self.move([
                     (self.level.x, self.level.x+self.w, self.level.x),
                     (self.x+self.level.screenSize.x+self.xVel,
                         self.level.x+self.level.screenSize.x, self.x+self.xVel)])
             elif self.x+self.w+self.xVel>self.level.x+self.level.screenSize.x:
-                if self.xVel==0: self.xVel=self.x+self.w-(self.level.x+self.level.screenSize.x)
                 with_wrap=True
                 self.move([
                     (self.x, self.level.x+self.level.screenSize.x, self.x),
@@ -101,6 +99,8 @@ class SolidEntity(Entity):
         remainingXVel = self.xVel
         remainingYVel = self.yVel
 
+        # self.level.xVel
+
         maxCount = 2
         while (remainingXVel != 0 or remainingYVel != 0) and maxCount > 0:
             closestPoint = {
@@ -115,10 +115,10 @@ class SolidEntity(Entity):
             for other in collidables:
                 contact = False
                 if remainingYVel == 0 or remainingXVel == 0:
-                    if (other.x - self.w - abs(remainingXVel) <= min(self.x,
-                                                                     self.x + remainingXVel) <= other.x + other.w and
-                            other.y - self.h - abs(remainingYVel) <= min(self.y,
-                                                                         self.y + remainingYVel) <= other.y + other.h):
+                    if (other.x - self.w - abs(remainingXVel) <=
+                            min(self.x, self.x + remainingXVel) <= other.x + other.w and
+                            other.y - self.h - abs(remainingYVel) <=
+                            min(self.y, self.y + remainingYVel) <= other.y + other.h):
                         point = Vector(self.x, self.y)
                         normal = Vector(0, 0)
                         if remainingYVel != 0:

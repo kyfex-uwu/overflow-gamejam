@@ -16,6 +16,7 @@ class PlayerEntity(GravityEntity):
         self.z=10
         self.can_wrap=True
         self.is_jumping=0
+        self.can_jump=True
         self.spawnpoint = (0,0)
         self.parse = (12,0,6,6)
 
@@ -34,14 +35,16 @@ class PlayerEntity(GravityEntity):
         keys = pygame.key.get_pressed()
         cancel_jump=False
         if keys[pygame.K_w] and (self.normal.y==-1 or self.is_jumping > 0):
-            if self.is_jumping == 0: self.is_jumping = 15
+            if self.is_jumping == 0 and self.can_jump: self.is_jumping = 15
+            self.can_jump=False
             self.is_jumping -= 1
 
-            self.yVel = self.yVel*0.5-3*self.is_jumping/15
+            self.yVel = self.yVel*0.5-3*max(0,self.is_jumping)/15
         else:
             cancel_jump=True
         if self.is_jumping>0 and keys[pygame.K_w] is False: self.yVel*=0.3
         if cancel_jump: self.is_jumping = 0
+        if not keys[pygame.K_w]: self.can_jump = True
 
         if self.normal.y==1:
             self.is_jumping=-1
@@ -79,6 +82,7 @@ class PlayerEntity(GravityEntity):
         self.y = self.spawnpoint[1]
         self.xVel = 0
         self.yVel = 0
+        #todo: change this!! some level reset something, camera is weird
         self.level.x = self.x+self.w/2-self.level.screenSize.x/2
         self.level.y = self.level.player_entity.y - self.level.screenSize.y / 5 * 3
 
