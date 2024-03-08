@@ -49,8 +49,7 @@ globalvars.SCREEN_CONSTRS["settings"] = settings.SettingsScreen
 globalvars.SCREEN_CONSTRS["title"] = title.TitleScreen
 globalvars.SCREEN_CONSTRS["credits"] = credits.CreditsScreen
 
-#globalvars.CURR_SCREEN = TitleScreen(())
-globalvars.CURR_SCREEN = LevelScreen((level_loader.load_level("test4"),))
+globalvars.CURR_SCREEN = TitleScreen(())
 globalvars.IMAGES = {
     "buttons": pygame.image.load(os.path.join('resources', 'buttons.png')).convert_alpha(),
 }

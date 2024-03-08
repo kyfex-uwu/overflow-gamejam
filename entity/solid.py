@@ -61,22 +61,30 @@ class SolidEntity(Entity):
     def tick(self):
         with_wrap = False
         if self.can_wrap:
+            # if in wall already, try to move in scroll direction until youre out
+            if self.x + self.xVel < self.level.x and self.level.xVel>0:
+                phantom_self = Rect(self.x+self.level.screenSize.x,self.y,self.w,self.h)
+                for entity in sorted(self.level.entities, key=lambda e: e.x+e.w):
+                    if entity is self or not entity.solid: continue
+                    if entity.colliding(phantom_self):
+                        self.x = (min(entity.x + entity.w+epsilon, self.level.x+self.level.screenSize.x)-
+                                  self.level.screenSize.x)
+            elif self.x+self.w+self.xVel > self.level.x+self.level.screenSize.x and self.level.xVel<0:
+                phantom_self = Rect(self.x - self.level.screenSize.x, self.y, self.w, self.h)
+                for entity in sorted(self.level.entities, key=lambda e: e.x, reverse=True):
+                    if entity is self or not entity.solid: continue
+                    if entity.colliding(phantom_self):
+                        self.x = (max(entity.x-epsilon, self.level.x)-self.w +
+                                  self.level.screenSize.x)
+
             real_xVel=self.xVel
             if self.x+self.xVel<self.level.x:
-                perc_xvel = max(0, self.level.xVel)
-                self.x+=perc_xvel
-                self.xVel-=perc_xvel
-
                 with_wrap=True
                 self.move([
                     (self.level.x, self.level.x+self.w, self.level.x),
                     (self.x+self.level.screenSize.x+self.xVel,
                         self.level.x+self.level.screenSize.x, self.x+self.xVel)])
             elif self.x+self.w+self.xVel>self.level.x+self.level.screenSize.x:
-                perc_xvel = min(0, self.level.xVel)
-                self.x+=perc_xvel
-                self.xVel-=perc_xvel
-
                 with_wrap=True
                 self.move([
                     (self.x, self.level.x+self.level.screenSize.x, self.x),

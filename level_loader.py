@@ -22,7 +22,7 @@ def load_level(level_name):
                     palette[tile[0]] = (int(tile[1], 36), int(tile[2], 36), data[0])
 
         # tiles
-        if leveldata[3][0] != '':
+        if leveldata[3][0] != '' or len(leveldata[3]) != 1:
             width = sorted([len(line) for line in leveldata[3]], key=lambda e: e, reverse=True)[0]
             for i in range(len(leveldata[3])):
                 leveldata[3][i] = leveldata[3][i] + ("." * (width - len(leveldata[3][i])))
