@@ -46,8 +46,13 @@ class Level:
         if self.player_entity is not None:
             self.y = self.y * 0.9 + (self.player_entity.y - self.screenSize.y / 5 * 3) * 0.1
 
-        self.x = max(0, min(self.w * 8 - self.screenSize.x, self.x))
         self.y = max(0, min(self.h * 8 - self.screenSize.y, self.y))
+        if self.x < 0:
+            self.xVel=0
+            self.x = 0
+        elif self.x > self.w*8 - self.screenSize.x:
+            self.xVel=0
+            self.x = self.w*8 - self.screenSize.x
 
         self.entities.sort(key=lambda e: e.z)
         for entity in self.entities:

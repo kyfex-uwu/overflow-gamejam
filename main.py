@@ -5,6 +5,7 @@ from pygame import Surface
 
 import audio
 import globalvars
+import level_loader
 from screen.level import LevelScreen
 from screen.title import TitleScreen
 
@@ -48,7 +49,8 @@ globalvars.SCREEN_CONSTRS["settings"] = settings.SettingsScreen
 globalvars.SCREEN_CONSTRS["title"] = title.TitleScreen
 globalvars.SCREEN_CONSTRS["credits"] = credits.CreditsScreen
 
-globalvars.CURR_SCREEN = TitleScreen(())
+#globalvars.CURR_SCREEN = TitleScreen(())
+globalvars.CURR_SCREEN = LevelScreen((level_loader.load_level("test4"),))
 globalvars.IMAGES = {
     "buttons": pygame.image.load(os.path.join('resources', 'buttons.png')).convert_alpha(),
 }

@@ -61,18 +61,28 @@ class SolidEntity(Entity):
     def tick(self):
         with_wrap = False
         if self.can_wrap:
+            real_xVel=self.xVel
             if self.x+self.xVel<self.level.x:
+                perc_xvel = max(0, self.level.xVel)
+                self.x+=perc_xvel
+                self.xVel-=perc_xvel
+
                 with_wrap=True
                 self.move([
                     (self.level.x, self.level.x+self.w, self.level.x),
                     (self.x+self.level.screenSize.x+self.xVel,
                         self.level.x+self.level.screenSize.x, self.x+self.xVel)])
             elif self.x+self.w+self.xVel>self.level.x+self.level.screenSize.x:
+                perc_xvel = min(0, self.level.xVel)
+                self.x+=perc_xvel
+                self.xVel-=perc_xvel
+
                 with_wrap=True
                 self.move([
                     (self.x, self.level.x+self.level.screenSize.x, self.x),
                     (self.level.x, self.level.x*2-self.level.screenSize.x+self.x+self.w+self.xVel,
                         self.level.x+self.level.screenSize.x)])
+            if self.xVel != 0 and with_wrap: self.xVel = real_xVel
         if not with_wrap:
             self.move([(self.x+min(0, self.xVel), self.x+self.w+max(0,self.xVel), self.x+min(0, self.xVel))])
 
@@ -98,8 +108,6 @@ class SolidEntity(Entity):
         self.normal = Vector(0, 0)
         remainingXVel = self.xVel
         remainingYVel = self.yVel
-
-        # self.level.xVel
 
         maxCount = 2
         while (remainingXVel != 0 or remainingYVel != 0) and maxCount > 0:

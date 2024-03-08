@@ -91,8 +91,8 @@ class PlayerEntity(GravityEntity):
         self.level.surface.blit(PlayerEntity.IMAGE, (round(self.x-self.level.screenSize.x), round(self.y)), self.parse)
         self.level.surface.blit(PlayerEntity.IMAGE, (round(self.x+self.level.screenSize.x), round(self.y)), self.parse)
 
-        for rect in self._collidables:
-            pygame.draw.rect(self.level.surface, (255,0,0), (round(rect.x),round(rect.y),rect.w,rect.h))
+        # for rect in self._collidables:
+        #     pygame.draw.rect(self.level.surface, (255,0,0), (round(rect.x),round(rect.y),rect.w,rect.h))
 
 def init():
     level_loader.ENTITY_LOADERS['player'] = lambda strings: PlayerEntity()
