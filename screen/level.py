@@ -5,6 +5,7 @@ import pygame
 from pygame import Surface
 
 import globalvars
+import keys
 from screen.component.button import Button
 from screen.screen import Screen
 import audio
@@ -62,7 +63,6 @@ class LevelScreen(Screen):
         self.components.append(Button(65, 39, 40, 20, on_click))
 
         self.paused=False
-        self.last_esc=False
 
         if LevelScreen.NUMBERS is None:
             LevelScreen.NUMBERS = pygame.image.load(os.path.join('resources', 'numbers.png'))
@@ -71,10 +71,8 @@ class LevelScreen(Screen):
             LevelScreen.PAUSE_OVERLAY.fill((0,0,0, 100))
 
     def render(self, screen):
-        esc_pressed = pygame.key.get_pressed()[pygame.K_ESCAPE]
-        if self.last_esc is False and esc_pressed is True and not self.level.finished:
+        if keys.PAUSE.pressed:
             self.paused = not self.paused
-        self.last_esc = esc_pressed
 
         if not self.paused:
             self.level.tick()

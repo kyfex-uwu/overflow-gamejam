@@ -1,6 +1,7 @@
 import pygame
 import os
 
+import keys
 import level_loader
 from entity.gravity import GravityEntity
 import audio
@@ -16,7 +17,6 @@ class PlayerEntity(GravityEntity):
         self.z=10
         self.can_wrap=True
         self.is_jumping=0
-        self.can_jump=True
         self.spawnpoint = (0,0)
         self.parse = (12,0,6,6)
 
@@ -32,34 +32,30 @@ class PlayerEntity(GravityEntity):
             self.y=self.spawnpoint[1]
 
     def tick(self):
-        keys = pygame.key.get_pressed()
-        cancel_jump=False
-        if keys[pygame.K_w] and (self.normal.y==-1 or self.is_jumping > 0):
-            if self.is_jumping == 0 and self.can_jump: self.is_jumping = 15
-            self.can_jump=False
-            self.is_jumping -= 1
-
-            self.yVel = self.yVel*0.5-3*max(0,self.is_jumping)/15
-        else:
-            cancel_jump=True
-        if self.is_jumping>0 and keys[pygame.K_w] is False: self.yVel*=0.3
-        if cancel_jump: self.is_jumping = 0
-        if not keys[pygame.K_w]: self.can_jump = True
+        if keys.JUMP.pressed and self.normal.y==-1:
+            self.is_jumping=15
+        if self.is_jumping>0:
+            if keys.JUMP.down:
+                self.is_jumping -= 1
+                self.yVel = self.yVel * 0.5 - 3 * max(0, self.is_jumping) / 15
+            else:
+                self.is_jumping=0
+                self.yVel*=0.3
 
         if self.normal.y==1:
             self.is_jumping=-1
 
         self.parse=(12,0,6,6)
-        if keys[pygame.K_a]:
+        if keys.LEFT.down:
             self.xVel = max(self.xVel - X_ACCEL, -MAX_XVEL)
             self.parse = (6, 0, 6, 6)
-        if keys[pygame.K_d]:
+        if keys.RIGHT.down:
             self.xVel = min(self.xVel + X_ACCEL, MAX_XVEL)
             self.parse = (0, 0, 6, 6)
-        if not keys[pygame.K_a] and not keys[pygame.K_d]:
+        if not keys.LEFT.down and not keys.RIGHT.down:
             self.xVel *= 0.7
-        if keys[pygame.K_r]:
-            self.kill()
+        # if keys0[pygame.K_r]:
+        #     self.kill()
 
         if not self.level.finished:
             if self.x+self.w < self.level.x:

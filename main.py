@@ -5,6 +5,7 @@ from pygame import Surface
 
 import audio
 import globalvars
+import keys
 import level_loader
 from screen.level import LevelScreen
 from screen.title import TitleScreen
@@ -35,14 +36,13 @@ with open("conf.txt", "r+") as config:
             pass
 globalvars.set_size(globalvars.CONFIG["size"])
 audio.music_vol(globalvars.CONFIG["volume"])
+audio.sfx_vol(globalvars.CONFIG["volume"])
 
 from entity import disk, player, solid, spawn, tiles, spikes, display
-
 for entity in {disk, player, solid, spawn, tiles, spikes, display}:
     entity.init()
 
 from screen import level, select, settings, title, credits
-
 globalvars.SCREEN_CONSTRS["level"] = level.LevelScreen
 globalvars.SCREEN_CONSTRS["select"] = select.SelectScreen
 globalvars.SCREEN_CONSTRS["settings"] = settings.SettingsScreen
@@ -65,10 +65,11 @@ while running:
     globalvars.MOUSE["left"] = state[0]
     globalvars.MOUSE["right"] = state[2]
 
+    keys.poll()
+
     if isinstance(globalvars.CURR_SCREEN, LevelScreen) and not globalvars.CURR_SCREEN.level.finished:
         globalvars.TIMER += dt
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_o]:
+    if keys.DEV_UNLOCK.down:
         globalvars.LEVELS_UNLOCKED = 16
         globalvars.TIMER = 999999
 

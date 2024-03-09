@@ -5,6 +5,7 @@ import pygame
 from pygame import Surface
 
 import globalvars
+import keys
 from entity.entity import Vector
 
 PIXEL_WIDTH=8
@@ -34,10 +35,9 @@ class Level:
         dest.blit(self.surface, (round(-self.x), round(-self.y),self.screenSize.x,self.screenSize.y))
 
     def tick(self):
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_RIGHT]:
+        if keys.SCR_RIGHT.down:
             self.xVel = min(self.xVel + 0.4, 2)
-        if keys[pygame.K_LEFT]:
+        if keys.SCR_LEFT.down:
             self.xVel = max(self.xVel - 0.4, -2)
         self.x+=self.xVel
 
