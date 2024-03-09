@@ -67,15 +67,15 @@ class SolidEntity(Entity):
                 for entity in sorted(self.level.entities, key=lambda e: e.x+e.w):
                     if entity is self or not entity.solid: continue
                     if entity.colliding(phantom_self):
-                        self.x = (min(entity.x + entity.w+epsilon, self.level.x+self.level.screenSize.x)-
-                                  self.level.screenSize.x)
+                        self.x = (min(entity.x + entity.w, self.level.x+self.level.screenSize.x)+
+                                  epsilon-self.level.screenSize.x)
             elif self.x+self.w+self.xVel > self.level.x+self.level.screenSize.x and self.level.xVel<0:
                 phantom_self = Rect(self.x - self.level.screenSize.x, self.y, self.w, self.h)
                 for entity in sorted(self.level.entities, key=lambda e: e.x, reverse=True):
                     if entity is self or not entity.solid: continue
                     if entity.colliding(phantom_self):
-                        self.x = (max(entity.x-epsilon, self.level.x)-self.w +
-                                  self.level.screenSize.x)
+                        self.x = (max(entity.x, self.level.x)-self.w -
+                                  epsilon+self.level.screenSize.x)
 
             real_xVel=self.xVel
             if self.x+self.xVel<self.level.x:
