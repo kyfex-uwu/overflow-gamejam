@@ -1,5 +1,3 @@
-import pygame
-
 import level_loader
 from entity.entity import Entity, Vector, Rect
 
@@ -56,9 +54,43 @@ class SolidEntity(Entity):
         super().__init__(x, y, w, h)
         self.normal = Vector(0, 0)
         self.solid = True
+        self.can_wrap=False
 
     def tick(self):
-        self.move()
+        with_wrap = False
+        if self.can_wrap:
+            # if in wall already, try to move in scroll direction until youre out
+            if self.x + self.xVel < self.level.x and self.level.xVel>0:
+                phantom_self = Rect(self.x+self.level.screenSize.x,self.y,self.w,self.h)
+                for entity in sorted(self.level.entities, key=lambda e: e.x+e.w):
+                    if entity is self or not entity.solid: continue
+                    if entity.colliding(phantom_self):
+                        self.x = (min(entity.x + entity.w, self.level.x+self.level.screenSize.x)+
+                                  epsilon-self.level.screenSize.x)
+            elif self.x+self.w+self.xVel > self.level.x+self.level.screenSize.x and self.level.xVel<0:
+                phantom_self = Rect(self.x - self.level.screenSize.x, self.y, self.w, self.h)
+                for entity in sorted(self.level.entities, key=lambda e: e.x, reverse=True):
+                    if entity is self or not entity.solid: continue
+                    if entity.colliding(phantom_self):
+                        self.x = (max(entity.x, self.level.x)-self.w -
+                                  epsilon+self.level.screenSize.x)
+
+            real_xVel=self.xVel
+            if self.x+self.xVel<self.level.x:
+                with_wrap=True
+                self.move([
+                    (self.level.x, self.level.x+self.w, self.level.x),
+                    (self.x+self.level.screenSize.x+self.xVel,
+                        self.level.x+self.level.screenSize.x, self.x+self.xVel)])
+            elif self.x+self.w+self.xVel>self.level.x+self.level.screenSize.x:
+                with_wrap=True
+                self.move([
+                    (self.x, self.level.x+self.level.screenSize.x, self.x),
+                    (self.level.x, self.level.x*2-self.level.screenSize.x+self.x+self.w+self.xVel,
+                        self.level.x+self.level.screenSize.x)])
+            if self.xVel != 0 and with_wrap: self.xVel = real_xVel
+        if not with_wrap:
+            self.move([(self.x+min(0, self.xVel), self.x+self.w+max(0,self.xVel), self.x+min(0, self.xVel))])
 
         self.xVel *= 0.95
         self.yVel *= 0.98
@@ -66,7 +98,19 @@ class SolidEntity(Entity):
         if abs(self.xVel) <= 0.002: self.xVel = 0
         if abs(self.yVel) <= 0.002: self.yVel = 0
 
-    def move(self):
+    def move(self, slices):
+        # slices:[
+        #     (x1,x2,pos)
+        # ]
+        collidables = []
+        for slice in slices:
+            for entity in self.level.entities:
+                if entity is self or not entity.solid: continue
+                if slice[0]-entity.w <= entity.x <= slice[1]:
+                    x=max(entity.x,slice[0])
+                    x2=min(entity.x+entity.w,slice[1])
+                    collidables.append(Rect(x+(slice[2]-slice[0]),entity.y,x2-x,entity.h))
+
         self.normal = Vector(0, 0)
         remainingXVel = self.xVel
         remainingYVel = self.yVel
@@ -82,15 +126,13 @@ class SolidEntity(Entity):
                 "distance": 1
             }
 
-            for other in self.level.entities:
-                if other is self or other.solid is not True: continue
-
+            for other in collidables:
                 contact = False
                 if remainingYVel == 0 or remainingXVel == 0:
-                    if (other.x - self.w - abs(remainingXVel) <= min(self.x,
-                                                                     self.x + remainingXVel) <= other.x + other.w and
-                            other.y - self.h - abs(remainingYVel) <= min(self.y,
-                                                                         self.y + remainingYVel) <= other.y + other.h):
+                    if (other.x - self.w - abs(remainingXVel) <=
+                            min(self.x, self.x + remainingXVel) <= other.x + other.w and
+                            other.y - self.h - abs(remainingYVel) <=
+                            min(self.y, self.y + remainingYVel) <= other.y + other.h):
                         point = Vector(self.x, self.y)
                         normal = Vector(0, 0)
                         if remainingYVel != 0:

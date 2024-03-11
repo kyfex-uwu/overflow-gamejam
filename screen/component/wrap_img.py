@@ -5,7 +5,6 @@ import pygame
 
 from screen.component.component import Component
 
-
 wrap_amt = 0
 class WrapImage(Component):
     def __init__(self, img_name, offs):

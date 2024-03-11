@@ -1,0 +1,4 @@
+30;13
+
+blueTiles:A00
+AAAA.....................AAAAA;AAAA.....................AAAAA;AAAA.A.A.................AAAAA;AA.A.A.A.................AAAAA;AA.A.A.A.................AAAAA;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA;AAAA.....................AAAAA;AAAA.....................AAAAA;AAAA.....................AAAAA;AAAA.....................AAAAA;AAAA.....................AAAAA;AAAA.....................AAAAA;.............................A

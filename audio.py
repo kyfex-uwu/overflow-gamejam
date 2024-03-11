@@ -1,6 +1,6 @@
 import os
-from pygame import mixer
 
+from pygame import mixer
 
 mixer.init()
 
@@ -30,7 +30,6 @@ def playLevel():
 
 def collect():
     mixer.Channel(1).stop()
-    mixer.Channel(2).set_volume(1)
     mixer.Channel(2).play(levelComplete)
 
 def title():
@@ -52,7 +51,6 @@ def glitched():
 
 def win():
     mixer.Channel(1).stop()
-    mixer.Channel(2).set_volume(1)
     mixer.Channel(2).play(collect2)
 
 def music_vol(vol):

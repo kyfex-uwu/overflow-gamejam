@@ -13,27 +13,30 @@ def load_level(level_name):
         # tile palette
         palette = {".": None}
         images = set()
-        for img_group in leveldata[2]:
-            data = img_group.split(":", 1)
-            images.add(data[0])
-            these_tiles = [data[1][i:i + 3] for i in range(0, len(data[1]), 3)]
-            for tile in these_tiles:
-                palette[tile[0]] = (int(tile[1], 36), int(tile[2], 36), data[0])
+        if leveldata[2][0] != '':
+            for img_group in leveldata[2]:
+                data = img_group.split(":", 1)
+                images.add(data[0])
+                these_tiles = [data[1][i:i + 3] for i in range(0, len(data[1]), 3)]
+                for tile in these_tiles:
+                    palette[tile[0]] = (int(tile[1], 36), int(tile[2], 36), data[0])
 
         # tiles
-        width = sorted([len(line) for line in leveldata[3]], key=lambda e: e, reverse=True)[0]
-        for i in range(len(leveldata[3])):
-            leveldata[3][i] = leveldata[3][i] + ("." * (width - len(leveldata[3][i])))
-        ENTITY_LOADERS['tiles'](([[palette[char] for char in line] for line in leveldata[3]], images)
-                                ).init(to_return)
+        if leveldata[3][0] != '' or len(leveldata[3]) != 1:
+            width = sorted([len(line) for line in leveldata[3]], key=lambda e: e, reverse=True)[0]
+            for i in range(len(leveldata[3])):
+                leveldata[3][i] = leveldata[3][i] + ("." * (width - len(leveldata[3][i])))
+            ENTITY_LOADERS['tiles'](([[palette[char] for char in line] for line in leveldata[3]], images)
+                                    ).init(to_return)
 
         # entities
         entities = []
-        for entity_str in leveldata[1]:
-            data = entity_str.split(":", 1)
-            entities.append(ENTITY_LOADERS[data[0]](data[1].split(",")))
-        for entity in entities:
-            entity.init(to_return)
+        if leveldata[1][0] != '':
+            for entity_str in leveldata[1]:
+                data = entity_str.split(":", 1)
+                entities.append(ENTITY_LOADERS[data[0]](data[1].split(",")))
+            for entity in entities:
+                entity.init(to_return)
         ENTITY_LOADERS['player'](()).init(to_return)
 
         return to_return

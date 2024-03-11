@@ -1,5 +1,4 @@
 import pygame.mouse
-import os
 
 import globalvars
 from screen.component.component import SizedComponent
