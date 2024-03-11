@@ -19,6 +19,7 @@ SCR_RIGHT = KeyData(pygame.K_RIGHT, "S Right")
 PAUSE = KeyData(pygame.K_ESCAPE, "Pause")
 # make sure to give the key a name! the first key without a name signifies dev keys
 DEV_UNLOCK = KeyData(pygame.K_o, "")
+LEVEL_EDITOR = KeyData(pygame.K_l, "")
 
 def poll():
     keys = pygame.key.get_pressed()
