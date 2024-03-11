@@ -33,6 +33,7 @@ def load_config_file():
         keys.PAUSE.key = int(args[5])
 
     with open("conf.txt", "a+") as config:
+        config.seek(0)
         for prop in config.readlines():
             try:
                 data = prop.split(": ",1)
