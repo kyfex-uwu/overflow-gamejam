@@ -32,7 +32,7 @@ def load_config_file():
         keys.SCR_RIGHT.key = int(args[4])
         keys.PAUSE.key = int(args[5])
 
-    with open("conf.txt", "r+") as config:
+    with open("conf.txt", "a+") as config:
         for prop in config.readlines():
             try:
                 data = prop.split(": ",1)
