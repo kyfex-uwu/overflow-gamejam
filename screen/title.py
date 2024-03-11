@@ -3,6 +3,7 @@ from pygame import Surface
 import audio
 import font
 import globalvars
+import keys
 from screen.component.button import Button
 from screen.component.wrap_img import WrapImage
 from screen.level import drawTimer

@@ -32,7 +32,7 @@ def load_config_file():
         keys.SCR_RIGHT.key = int(args[4])
         keys.PAUSE.key = int(args[5])
 
-    with open("conf.txt", "r+") as config:
+    with open("conf.txt", "a+") as config:
         for prop in config.readlines():
             try:
                 data = prop.split(": ",1)
@@ -80,9 +80,6 @@ while running:
 
     if isinstance(globalvars.CURR_SCREEN, LevelScreen) and not globalvars.CURR_SCREEN.level.finished:
         globalvars.TIMER += dt
-    # if keys.DEV_UNLOCK.down:
-    #     globalvars.LEVELS_UNLOCKED = 16
-    #     globalvars.TIMER = 999999
 
     globalvars.CURR_SCREEN.render(SMALL_SCREEN)
     pygame.transform.scale(SMALL_SCREEN, globalvars.SCREEN.get_size(), globalvars.SCREEN)
