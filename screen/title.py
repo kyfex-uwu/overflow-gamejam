@@ -3,6 +3,7 @@ from pygame import Surface
 import audio
 import font
 import globalvars
+import keys
 from screen.component.button import Button
 from screen.component.wrap_img import WrapImage
 from screen.level import drawTimer
@@ -62,3 +63,10 @@ class TitleScreen(Screen):
 
         if outdated:
             font.write(self.screen, "new version!\nClick to update", 176,80,centered=2)
+        else:
+            font.write(self.screen, "v"+this_version, 176, 90, centered=2)
+
+        # if keys.DEV_UNLOCK.pressed:
+        #     globalvars.LEVELS_UNLOCKED = 16
+        #     globalvars.TIMER = 999999
+        
