@@ -1,6 +1,3 @@
-import pygame
-
-
 class Entity:
     def __init__(self, x, y, w, h):
         self.level = None

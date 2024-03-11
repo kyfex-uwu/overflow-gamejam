@@ -1,5 +1,3 @@
-import pygame
-
 import level_loader
 from entity.entity import Entity, Vector, Rect
 

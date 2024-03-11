@@ -6,7 +6,6 @@ from pygame import Surface
 import audio
 import globalvars
 import keys
-import level_loader
 from screen.level import LevelScreen
 from screen.title import TitleScreen
 
@@ -20,23 +19,34 @@ running = True
 dt = 0
 
 # config init
-def set_vol(args):
-    globalvars.CONFIG["volume"] = min(1,max(0,float(args[0])))
-def set_size(args):
-    globalvars.CONFIG["size"] = max(0,min(8,int(args[0])))+1
-with open("conf.txt", "r+") as config:
-    for prop in config.readlines():
-        try:
-            data = prop.split(": ",1)
-            ({
-                "volume": set_vol,
-                "size": set_size
-            })[data[0]](data[1:])
-        except Exception:
-            pass
-globalvars.set_size(globalvars.CONFIG["size"])
-audio.music_vol(globalvars.CONFIG["volume"])
-audio.sfx_vol(globalvars.CONFIG["volume"])
+def load_config_file():
+    def set_vol(args):
+        globalvars.CONFIG["volume"] = min(1,max(0,float(args[0])))
+    def set_size(args):
+        globalvars.CONFIG["size"] = max(0,min(8,int(args[0])))+1
+    def set_keys(args):
+        keys.LEFT.key = int(args[0])
+        keys.RIGHT.key = int(args[1])
+        keys.JUMP.key = int(args[2])
+        keys.SCR_LEFT.key = int(args[3])
+        keys.SCR_RIGHT.key = int(args[4])
+        keys.PAUSE.key = int(args[5])
+
+    with open("conf.txt", "r+") as config:
+        for prop in config.readlines():
+            try:
+                data = prop.split(": ",1)
+                ({
+                    "volume": set_vol,
+                    "size": set_size,
+                    "keys": set_keys
+                })[data[0]](data[1].split(","))
+            except Exception:
+                pass
+    globalvars.set_size(globalvars.CONFIG["size"])
+    audio.music_vol(globalvars.CONFIG["volume"])
+    audio.sfx_vol(globalvars.CONFIG["volume"])
+load_config_file()
 
 from entity import disk, player, solid, spawn, tiles, spikes, display
 for entity in {disk, player, solid, spawn, tiles, spikes, display}:
@@ -52,6 +62,7 @@ globalvars.SCREEN_CONSTRS["credits"] = credits.CreditsScreen
 globalvars.CURR_SCREEN = TitleScreen(())
 globalvars.IMAGES = {
     "buttons": pygame.image.load(os.path.join('resources', 'buttons.png')).convert_alpha(),
+    "timer": pygame.image.load(os.path.join("resources", "numbers.png")).convert_alpha()
 }
 
 while running:
@@ -69,9 +80,9 @@ while running:
 
     if isinstance(globalvars.CURR_SCREEN, LevelScreen) and not globalvars.CURR_SCREEN.level.finished:
         globalvars.TIMER += dt
-    if keys.DEV_UNLOCK.down:
-        globalvars.LEVELS_UNLOCKED = 16
-        globalvars.TIMER = 999999
+    # if keys.DEV_UNLOCK.down:
+    #     globalvars.LEVELS_UNLOCKED = 16
+    #     globalvars.TIMER = 999999
 
     globalvars.CURR_SCREEN.render(SMALL_SCREEN)
     pygame.transform.scale(SMALL_SCREEN, globalvars.SCREEN.get_size(), globalvars.SCREEN)
@@ -83,3 +94,11 @@ pygame.quit()
 with open("conf.txt", "w") as config:
     config.write("\nvolume: "+str(globalvars.CONFIG["volume"]))
     config.write("\nsize: "+str(globalvars.CONFIG["size"]))
+    config.write("\nkeys: "+",".join([str(key) for key in [
+        keys.LEFT.key,
+        keys.RIGHT.key,
+        keys.JUMP.key,
+        keys.SCR_LEFT.key,
+        keys.SCR_RIGHT.key,
+        keys.PAUSE.key,
+    ]]))

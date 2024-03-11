@@ -1,8 +1,11 @@
-import pygame
 import os
+
+import pygame
 
 import level_loader
 from entity.entity import Entity
+
+
 class SpikeEntity(Entity):
     IMAGE = None
     def __init__(self, x, y, direction="up"):

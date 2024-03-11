@@ -1,10 +1,6 @@
-import math
-import os
-
 import pygame
 from pygame import Surface
 
-import globalvars
 import keys
 from entity.entity import Vector
 
@@ -50,6 +46,9 @@ class Level:
         self.entities.sort(key=lambda e: e.z)
         for entity in self.entities:
             entity.tick()
+
+        self.y = max(0, min(self.h * 8 - self.screenSize.y, self.y))
+        self.x = max(0, min(self.w * 8 - self.screenSize.x, self.x))
 
         self.xVel = round(self.xVel * 0.8 * 1000) / 1000
         if abs(self.xVel) <= 0.002: self.xVel = 0

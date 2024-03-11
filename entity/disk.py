@@ -3,10 +3,11 @@ import os
 
 import pygame
 
+import audio
 import globalvars
 import level_loader
 from entity.entity import Entity
-import audio
+
 
 class DiskEntity(Entity):
     IMAGE = None

@@ -1,11 +1,11 @@
-import pygame
 import os
 
+import pygame
+
+import audio
 import keys
 import level_loader
 from entity.gravity import GravityEntity
-import audio
-from entity.solid import SolidEntity
 
 MAX_XVEL=1.7
 X_ACCEL=0.4

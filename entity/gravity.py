@@ -1,5 +1,3 @@
-import pygame
-
 from entity.solid import SolidEntity
 
 

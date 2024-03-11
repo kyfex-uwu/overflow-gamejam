@@ -1,6 +1,3 @@
-import pygame.draw
-
-
 class Component:
     def __init__(self):
         pass
