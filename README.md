@@ -1,3 +1,6 @@
 # wraparound
 
-To build: `cxfreeze -c -s main.py --target-dir dist --target-name wraparound` inside the root folder. Then, make sure `resources/` is copied into `dist/`
+To build: 
+- make sure conf.txt is deleted
+- `cxfreeze -c -s main.py --target-dir dist --target-name wraparound` inside the root folder
+- copy `resources/` into `dist/resources`
