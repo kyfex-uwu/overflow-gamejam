@@ -14,7 +14,7 @@ import asyncio
 import json
 
 outdated=False
-this_version="0.9.0"
+this_version="0.9.1"
 async def main():
     response = requests.get("https://itch.io/api/1/x/wharf/latest?target=kyfex-uwu/wraparound&channel_name="
                             "windows"
