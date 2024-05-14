@@ -31,6 +31,8 @@ def load_config_file():
         keys.SCR_LEFT.key = int(args[3])
         keys.SCR_RIGHT.key = int(args[4])
         keys.PAUSE.key = int(args[5])
+    def set_unlocked(args):
+        globalvars.LEVELS_UNLOCKED = int(args[0])
 
     with open("conf.txt", "a+") as config:
         config.seek(0)
@@ -40,7 +42,8 @@ def load_config_file():
                 ({
                     "volume": set_vol,
                     "size": set_size,
-                    "keys": set_keys
+                    "keys": set_keys,
+                    "unlocked": set_unlocked
                 })[data[0]](data[1].split(","))
             except Exception:
                 pass
@@ -100,3 +103,4 @@ with open("conf.txt", "w") as config:
         keys.SCR_RIGHT.key,
         keys.PAUSE.key,
     ]]))
+    config.write("\nunlocked: "+str(globalvars.LEVELS_UNLOCKED))

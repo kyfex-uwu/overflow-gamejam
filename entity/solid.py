@@ -160,13 +160,15 @@ class SolidEntity(Entity):
             self.x = round((closestPoint['point'].x + closestPoint['normal'].x * epsilon) / epsilon) * epsilon
             self.y = round((closestPoint['point'].y + closestPoint['normal'].y * epsilon) / epsilon) * epsilon
 
-            remainingXVel *= -abs(closestPoint['normal'].x) + 1
-            remainingYVel *= -abs(closestPoint['normal'].y) + 1
+            remainingXVel *= 1-abs(closestPoint['normal'].x)
+            remainingYVel *= 1-abs(closestPoint['normal'].y)
 
             maxCount -= 1
 
-            self.normal.x = self.normal.x if self.normal.x != 0 else closestPoint['normal'].x
-            self.normal.y = self.normal.y if self.normal.y != 0 else closestPoint['normal'].y
+            if self.normal.x == 0:
+                self.normal.x = closestPoint['normal'].x
+            if self.normal.y == 0:
+                self.normal.y = closestPoint['normal'].y
             if closestPoint['normal'].x != 0:
                 self.xVel = 0
             if closestPoint['normal'].y != 0:
