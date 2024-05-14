@@ -33,6 +33,8 @@ def load_config_file():
         keys.PAUSE.key = int(args[5])
     def set_unlocked(args):
         globalvars.LEVELS_UNLOCKED = int(args[0])
+    def set_timer(args):
+        globalvars.TIMER = float(args[0])
 
     with open("conf.txt", "a+") as config:
         config.seek(0)
@@ -43,7 +45,8 @@ def load_config_file():
                     "volume": set_vol,
                     "size": set_size,
                     "keys": set_keys,
-                    "unlocked": set_unlocked
+                    "unlocked": set_unlocked,
+                    "time": set_timer
                 })[data[0]](data[1].split(","))
             except Exception:
                 pass
@@ -104,3 +107,4 @@ with open("conf.txt", "w") as config:
         keys.PAUSE.key,
     ]]))
     config.write("\nunlocked: "+str(globalvars.LEVELS_UNLOCKED))
+    config.write("\ntime: "+str(globalvars.TIMER))
